@@ -1,0 +1,10 @@
+ja:
+    enums:
+      vehicle:
+        use_for:
+          town: "街乗り"
+          touring: "ツーリング"
+          sports: "スポーツ"
+        category:
+          car: "車"
+          motorcycle: "バイク"

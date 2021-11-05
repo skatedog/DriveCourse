@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     root "devise/sessions#new"
   end
-  resources :users, except: [:new, :create]
+  resources :users, except: [:new, :create] do
+    resources :vehicles, except: :index
+  end
 end
