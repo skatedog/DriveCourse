@@ -1,0 +1,10 @@
+<% if user.user_image? %>
+  <%= image_tag user.user_image.url %>
+<% else %>
+  <%= image_tag "default/user_image.png" %>
+<% end %>
+<%= user.name %>
+<%= simple_format(user.introduction) %>
+<% if user == current_user %>
+  <%= link_to "編集", edit_user_path(user) %>
+<% end %>
