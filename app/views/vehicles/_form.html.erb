@@ -1,0 +1,18 @@
+<%= render "layouts/error_messages", resource: vehicle %>
+<%= form_with model: [current_user, vehicle], local: true do |f| %>
+  <%= f.label :vehicle_images %>
+  <%= f.file_field :vehicle_images, multiple: true %><br>
+  <%= f.label :use_for %>
+  <%= f.collection_select :use_for, Vehicle.use_fors_i18n, :first, :last %>
+  <%= f.label :category %>
+  <%= f.collection_select :category, Vehicle.categories_i18n, :first, :last %>
+  <%= f.label :maker %>
+  <%= f.text_field :maker %><br>
+  <%= f.label :displacement %>
+  <%= f.text_field :displacement %><br>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+  <%= f.label :introduction %>
+  <%= f.text_area :introduction %><br>
+  <%= f.submit %>
+<% end %>

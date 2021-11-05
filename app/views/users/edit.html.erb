@@ -1,6 +1,6 @@
-<h1>Users#edit</h1>
-<%= render "users/shared/error_messages", resource: @user %>
-<%= form_with model:@user, local: true do |f| %>
+<h1>ユーザー編集</h1>
+<%= render "layouts/error_messages", resource: @user %>
+<%= form_with model: @user, local: true do |f| %>
   <%= f.label :user_image %>
   <%= f.file_field :user_image %><br>
   <%= f.label :name %>

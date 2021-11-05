@@ -1,0 +1,8 @@
+<%= vehicle.maker %>
+<%= link_to vehicle.name, user_vehicle_path(vehicle.user, vehicle) %>
+<%= simple_format(vehicle.introduction) %>
+<% if vehicle.vehicle_images? %>
+  <%= image_tag vehicle.vehicle_images.first.url %>
+<% else %>
+  <%= image_tag "default/car.png" %>
+<% end %>s
