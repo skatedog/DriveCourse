@@ -1,5 +1,7 @@
 class PlacesController < ApplicationController
-  before_actions :ensure_correct_user, except: [:index, :show]
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, except: [:index, :show]
+
   def index
     places = User.find(params[:user_id]).places
     if params[:user_id] == current_user.id
@@ -49,10 +51,7 @@ class PlacesController < ApplicationController
   end
 
   private
-  def ensure_correct_user
-    redirect_to root_path unless params[:user_id] == current_user.id
-  end
-  def place_params
-    params.require(:place).permit(:genre_id, :is_protected, :name, :introduction, :address, :latitude, :longitude)
-  end
+    def place_params
+      params.require(:place).permit(:genre_id, :is_protected, :name, :introduction, :address, :latitude, :longitude)
+    end
 end

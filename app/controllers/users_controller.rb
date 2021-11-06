@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
-  before_action :set_currrent_user, except: :index
+  before_action :authenticate_user!
+  before_action :ensure_and_set_current_user, except: [:index, :show]
 
   def index
     @users = User.all
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -19,9 +21,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to root_path
+  end
+
   private
-    def set_currrent_user
+    def ensure_and_set_current_user
       @user = current_user
+      if @user.id != params[:id].to_i
+        redirect_to root_path
+      end
     end
 
     def user_params

@@ -1,4 +1,7 @@
 class VehiclesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, except: :show
+
   def show
     @vehicle = current_user.vehicles.find(params[:id])
   end
@@ -36,7 +39,7 @@ class VehiclesController < ApplicationController
   end
 
   private
-  def vehicle_params
-    params.require(:vehicle).permit(:use_for, :category, :maker, :displacement, :name, :introduction, vehicle_images: [])
-  end
+    def vehicle_params
+      params.require(:vehicle).permit(:use_for, :category, :maker, :displacement, :name, :introduction, vehicle_images: [])
+    end
 end
