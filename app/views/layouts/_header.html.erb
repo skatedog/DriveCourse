@@ -4,6 +4,8 @@
       <li><%= link_to "マイページ", user_path(current_user) %></li>
       <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <li><%= link_to "車両新規登録", new_user_vehicle_path(current_user) %></li>
+      <li><%= link_to "マイプレイス", user_places_path(current_user) %></li>
+      <li><%= link_to "プレイス登録", new_user_place_path(current_user), data: { turbolinks: false } %></li>
     <% end %>
   </ul>
 </header>

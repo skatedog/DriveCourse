@@ -1,0 +1,21 @@
+<h2>map</h2>
+<div id='map'></div>
+<style>
+#map{
+  height: 400px;
+}
+</style>
+<script>
+  <% if request.path_info == "/users/#{place.user.id}/places/new" %>
+    let lat = 35.68124
+    let lng = 139.76658
+  <% else %>
+    let lat = "<%= place.latitude %>"
+    let lng = "<%= place.longitude %>"
+  <% end %>
+</script>
+<% if request.path_info == "/users/#{place.user.id}/places/#{place.id}" %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initPlaceMap" async defer></script>
+<% else %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initEditablePlaceMap" async defer></script>
+<% end %>

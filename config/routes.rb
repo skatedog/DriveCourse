@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   end
   resources :users, except: [:new, :create] do
     resources :vehicles, except: :index
+    resources :places
   end
 end
