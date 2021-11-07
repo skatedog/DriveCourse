@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_05_134338) do
+ActiveRecord::Schema.define(version: 2021_11_07_010246) do
+
+  create_table "courses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "vehicle_id"
+    t.string "name", null: false
+    t.text "introduction", null: false
+    t.boolean "is_protected", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
@@ -27,6 +37,17 @@ ActiveRecord::Schema.define(version: 2021_11_05_134338) do
     t.decimal "longitude", precision: 10, scale: 7, null: false
     t.string "address", null: false
     t.boolean "is_protected", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "place_id", null: false
+    t.integer "sort_number", null: false
+    t.boolean "stopover", default: true, null: false
+    t.boolean "is_protected", default: true, null: false
+    t.json "place_images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

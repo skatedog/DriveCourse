@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :vehicles, dependent: :destroy
   has_many :places, dependent: :destroy
+  has_many :courses, dependent: :destroy
 
   validates :name, presence: true
 end
