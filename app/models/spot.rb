@@ -1,4 +1,4 @@
 class Spot < ApplicationRecord
-  belongs_to :places
+  belongs_to :place
   belongs_to :course
 end

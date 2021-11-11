@@ -1,0 +1,7 @@
+<ul class="place-list__list">
+  <% current_user.places.each do |place| %>
+    <li id=<%= place.id %> class="place-list__item">
+      <%= place.name + place.id.to_s %>
+    </li>
+  <% end %>
+</ul>

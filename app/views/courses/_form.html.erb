@@ -1,0 +1,25 @@
+<%= render "layouts/error_messages", resource: course %>
+<%= form_with model: [current_user, course], local: true do |f| %>
+  <%= f.label :vehicle_id %>
+  <%= f.collection_select :vehicle_id, current_user.vehicles, :id, :name %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+  <%= f.label :introduction %>
+  <%= f.text_area :introduction %><br>
+  <%= f.radio_button :is_protected, TRUE %>
+  <%= f.label :is_protected, "非公開", value: TRUE %>
+  <%= f.radio_button :is_protected, FALSE %>
+  <%= f.label :is_protected, "公開", value: FALSE %>
+
+  <%= f.label :origin %>
+  <%= f.collection_select :origin, current_user.places, :id, :name %>
+
+  <%= f.label :waypoint %>
+  <%= f.collection_select :waypoint, current_user.places, :id, :name %>
+
+  <%= f.label :destination %>
+  <%= f.collection_select :destination, current_user.places, :id, :name %>
+
+  <%= f.submit %>
+<% end %>

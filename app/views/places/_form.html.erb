@@ -1,6 +1,6 @@
 <%= render "layouts/error_messages", resource: place %>
 <input id="form_word" type="textbox">
-<input type="button" value="検索" onclick="panToFormWord()">
+<input type="button" value="検索" onclick="ChangeByFormWord()">
 <%= form_with model: [current_user, place], local: true do |f| %>
   <%= f.label :genre_id %>
   <%= f.collection_select :genre_id, Genre.all, :id, :name %>

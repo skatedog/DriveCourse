@@ -1,86 +1,88 @@
-/*global google*/
 /*global $*/
+/*global google*/
 
-var map;
-var marker;
+let map;
+let marker;
+let geocoder;
 
-// 地図を初期化する
-const initPlaceMap = () => {
-  var latLng = new google.maps.LatLng(lat,lng);
-  var opts = {
-    zoom: 15,
-    center: latLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map"), opts);
-  marker = new google.maps.Marker({
-    position: latLng,
-    map: map
+function initPlaceMap() {
+  map = initMap(lat, lng);
+  marker = setMarker(map, lat, lng);
+}
+
+function initEditablePlaceMap() {
+  map = initMap(lat, lng);
+  marker = setMarker(map, lat, lng);
+  geocoder = new google.maps.Geocoder();
+
+  // markerをdragできるようにする
+  marker.setOptions({ draggable: true });
+
+  // markerがdragされた場合の処理
+  google.maps.event.addListener(marker, "dragend", (event) => {
+    changeByLatLng(event.latLng);
+  });
+
+  // mapがclickされた場合の処理
+  google.maps.event.addListener(map, "click", (event) => {
+    changeByLatLng(event.latLng);
   });
 }
 
-// 地図を初期化する
-const initEditablePlaceMap = () => {
-  var latLng = new google.maps.LatLng(lat,lng);
-  var opts = {
+// 引数:座標, 機能:地図を初期化する, 返値:mapオブジェクト
+const initMap = (lat = 35.68124, lng = 139.76658) => {
+  let latLng = new google.maps.LatLng(lat, lng);
+  let opts = {
     zoom: 15,
     center: latLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  map = new google.maps.Map(document.getElementById("map"), opts);
-  marker = new google.maps.Marker({
+  return new google.maps.Map(document.getElementById("map"), opts);
+}
+
+// 引数:mapオブジェクトと座標, 機能:地図にマーカーをセットする, 返値:markerオブジェクト
+const setMarker = (map, lat = 35.68124, lng = 139.76658) => {
+  let latLng = new google.maps.LatLng(lat, lng);
+  let opts = {
     position: latLng,
     map: map,
-    draggable: true
-  });
-  // 地図がクリックされた場合の処理
-  google.maps.event.addListener(map, "click", (event) => {
-    getAddress(event.latLng);
-  });
-
-  // マーカーが動かされた場合の処理
-  google.maps.event.addListener(marker, "dragend", (event) => {
-    getAddress(event.latLng);
-  });
+  }
+  return new google.maps.Marker(opts);
 }
 
-// 座標から住所を検索する。
-const getAddress = (latLng) => {
-  var geocoder = new google.maps.Geocoder();
+// 座標を基にviewと地図を更新する
+const changeByLatLng = (latLng) => {
   geocoder.geocode( { latLng: latLng }, (results, status) => {
     if (status == 'OK') {
       let address = results[0].formatted_address.replace(/^日本、(〒\d{3}-\d{4} )?/,"");
-      $("#place_address").val(address);
-      changeLatLng(latLng)
+      UpdatePlaceMap(latLng, address);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
   });
 }
 
-// 検索フォーム(#form_word)の住所から緯度と経度を取得し、その座標に移動する。
-const panToFormWord = () => {
-  var word = document.getElementById("form_word").value;
-  var geocoder = new google.maps.Geocoder();
+// 検索ワードを基にviewと地図を更新する
+const ChangeByFormWord = () => {
+  let word = document.getElementById("form_word").value;
   geocoder.geocode( { address: word }, (results, status) => {
     if (status == 'OK') {
       let latLng = results[0].geometry.location;
       let address = results[0].formatted_address.replace(/^日本、(〒\d{3}-\d{4} )?/,"");
+      UpdatePlaceMap(latLng, address);
       $("#place_name").val(word);
-      $("#place_address").val(address);
-      changeLatLng(latLng)
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
   });
 }
 
-// 指定した座標にマーカーと中心を移動し、hidden_fieldの値を書き換える。
-const changeLatLng = (latLng) => {
+// viewと地図を更新する
+const UpdatePlaceMap = (latLng, address) => {
   let lat = latLng.lat();
   let lng = latLng.lng();
   $("#place_latitude").val(lat);
   $("#place_longitude").val(lng);
+  $("#place_address").val(address);
   map.panTo(latLng);
   marker.setPosition(latLng);
 }

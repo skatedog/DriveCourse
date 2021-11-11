@@ -4,10 +4,10 @@ class PlacesController < ApplicationController
 
   def index
     places = User.find(params[:user_id]).places
-    if params[:user_id] == current_user.id
+    if params[:user_id].to_i == current_user.id
       @places = places
     else
-      @places = places.where(is_protected: FALSE)
+      @places = places.where(is_protected: false)
     end
   end
 

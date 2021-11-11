@@ -1,0 +1,4 @@
+<h1>Courses#show</h1>
+<%= render "courses/map", spots: @course.spots %>
+<%= link_to "編集", edit_user_course_path(current_user, @course), data: { turbolinks: false } %>
+<%= link_to "削除", user_course_path(current_user, @course), method: :delete, data: {confirm: "本当に削除しますか？" } %>

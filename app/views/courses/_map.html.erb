@@ -7,24 +7,23 @@
 </style>
 
 <script>
-let lat;
-let lng;
-let callback;
-
-<% if place.valid? %>
-lat = "<%= place.latitude %>"
-lng = "<%= place.longitude %>"
+let spotsInfo = [];
+<% spots.each do |spot| %>
+	spotsInfo.push({
+		id: "<%= spot.id %>",
+		lat: "<%= spot.place.latitude %>",
+		lng: "<%= spot.place.longitude %>",
+		sortNumber: "<%= spot.sort_number %>",
+		stopover: "<%= spot.stopover %>",
+	});
 <% end %>
 
-if (location.pathname == "<%= "/users/#{place.user.id}/places/#{place.id}" %>") {
-  callback = "initPlaceMap";
-} else {
-  callback = "initEditablePlaceMap";
-}
+callback = "initEditableCourseMap";
 
 let script = document.createElement('script');
 script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=" + callback;
 script.async = true;
 script.defer = true;
 document.body.appendChild(script);
+
 </script>
