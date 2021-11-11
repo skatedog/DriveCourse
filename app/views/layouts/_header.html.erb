@@ -6,6 +6,8 @@
       <li><%= link_to "車両新規登録", new_user_vehicle_path(current_user) %></li>
       <li><%= link_to "マイプレイス", user_places_path(current_user) %></li>
       <li><%= link_to "プレイス登録", new_user_place_path(current_user), data: { turbolinks: false } %></li>
+      <li><%= link_to "マイドライブコース", user_courses_path(current_user) %></li>
+      <li><%= link_to "ドライブコース登録", new_user_course_path(current_user) %></li>
     <% end %>
   </ul>
 </header>

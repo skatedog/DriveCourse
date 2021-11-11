@@ -16,7 +16,7 @@ module DriveCourse
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # enumの日本語化に使用
+    # 言語を日本語に設定
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config/locales/*.yml').to_s]
   end

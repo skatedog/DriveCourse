@@ -1,0 +1,15 @@
+oldIndex = <%= @old_index %>
+
+spotsInfo.splice(oldIndex, 1)
+spotsInfo.forEach((spot) => {
+  if (spot.sortNumber > oldIndex) {
+    spot.sortNumber --;
+  }
+});
+
+sortSpotList(spotsInfo);
+
+$(() => {
+	$(".spot-list__list").children().eq(oldIndex).remove();
+	console.log("aaaaaaa");
+});

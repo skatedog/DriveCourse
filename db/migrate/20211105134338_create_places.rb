@@ -8,7 +8,7 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.decimal :latitude, precision: 9, scale: 7, null: false
       t.decimal :longitude, precision: 10, scale: 7, null: false
       t.string :address, null: false
-      t.boolean :is_protected, null: false, default: TRUE
+      t.boolean :is_protected, null: false, default: true
       t.timestamps
     end
   end
