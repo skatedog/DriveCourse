@@ -16,7 +16,7 @@ lat = "<%= place.latitude %>"
 lng = "<%= place.longitude %>"
 <% end %>
 
-if (location.pathname == "<%= "/users/#{place.user.id}/places/#{place.id}" %>") {
+if (location.pathname == "<%= "/places/#{place.id}" %>") {
   callback = "initPlaceMap";
 } else {
   callback = "initEditablePlaceMap";

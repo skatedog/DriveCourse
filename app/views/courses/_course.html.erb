@@ -1,1 +1,2 @@
-<%= link_to course.name, user_course_path(current_user, course) %>
+<%= link_to course.name, user_course_path(current_user, course), data: { turbolinks: false } %>
+<%= course.introduction %><br>

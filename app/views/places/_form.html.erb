@@ -1,19 +1,11 @@
 <%= render "layouts/error_messages", resource: place %>
 <input id="form_word" type="textbox">
 <input type="button" value="検索" onclick="ChangeByFormWord()">
-<%= form_with model: [current_user, place], local: true do |f| %>
-  <%= f.label :genre_id %>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name %>
-  <%= f.radio_button :is_protected, TRUE %>
-  <%= f.label :is_protected, "非公開", value: TRUE %>
-  <%= f.radio_button :is_protected, FALSE %>
-  <%= f.label :is_protected, "公開", value: FALSE %>
+<%= form_with model: place, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br>
-  <%= f.label :introduction %>
-  <%= f.text_area :introduction %><br>
-  <%= f.hidden_field :address %><br>
   <%= f.hidden_field :latitude %><br>
   <%= f.hidden_field :longitude %><br>
+  <%= f.hidden_field :address %><br>
   <%= f.submit %>
 <% end %>

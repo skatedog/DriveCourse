@@ -1,13 +1,14 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_user!
   def top
   end
 
   def index
-    @courses = current_user.courses
+    @courses = User.find(params[:user_id]).courses
   end
 
   def show
-    @course = current_user.courses.find(params[:id])
+    @course = User.find(params[:user_id]).courses.find(params[:id])
   end
 
   def new
@@ -15,14 +16,8 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = current_user.courses.new(course_params)
-    @course.save
-    place_ids = [
-      course_place_params[:origin],
-      course_place_params[:waypoint],
-      course_place_params[:destination],
-    ]
-    @course.create_sopts_by(place_ids)
+    @course = current_user.courses.create(course_params)
+    @course.spots.create(spots_params)
     redirect_to user_course_path(current_user, @course)
   end
 
@@ -32,10 +27,9 @@ class CoursesController < ApplicationController
 
   def update
     @course = current_user.courses.find(params[:id])
-    ids = params[:ids]
-    ids.each_with_index do |id, i|
-      @course.spots.find(id).update(sort_number: i)
-    end
+    @course.update(course_params)
+    @course.spots_update(spots_params)
+    redirect_to user_course_path(current_user, @course)
   end
 
   def destroy
@@ -46,7 +40,10 @@ class CoursesController < ApplicationController
 
   private
     def course_params
-      params.require(:course).permit(:vehicle_id, :name, :introduction, :is_protected)
+      params.require(:course).permit(:name, :introduction, :avoid_highways, :avoid_tolls, :departure)
+    end
+    def spots_params
+      JSON.parse(params.require(:course).permit(:spots)[:spots])
     end
     def course_place_params
       params.require(:course).permit(:origin, :waypoint, :destination)

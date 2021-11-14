@@ -7,16 +7,18 @@
 </style>
 
 <script>
-let spotsInfo = [];
-<% spots.each do |spot| %>
-	spotsInfo.push({
-		id: "<%= spot.id %>",
-		lat: "<%= spot.place.latitude %>",
-		lng: "<%= spot.place.longitude %>",
-		sortNumber: "<%= spot.sort_number %>",
-		stopover: "<%= spot.stopover %>",
-	});
-<% end %>
+
+let spots
+let places
+let avoidHighways = <%= course.avoid_highways %>
+let avoidTolls = <%= course.avoid_tolls %>
+let courseDepartureTime = <%= course.departure.to_f * 1000 %>
+let departureTime = Date.now() < courseDepartureTime ? courseDepartureTime : Date.now();
+
+$(() => {
+  spots = <%= raw(course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address])) %>;
+  places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
+});
 
 callback = "initEditableCourseMap";
 

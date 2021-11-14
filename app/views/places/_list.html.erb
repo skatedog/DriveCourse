@@ -1,7 +1,7 @@
 <ul class="place-list__list">
-  <% current_user.places.each do |place| %>
+  <% current_user.places.where.not(name: @course.spots.pluck(:name)).each do |place| %>
     <li id=<%= place.id %> class="place-list__item">
-      <%= place.name + place.id.to_s %>
+      <%= place.name %>
     </li>
   <% end %>
 </ul>

@@ -5,45 +5,68 @@ let directionsService;
 let directionsRenderer;
 
 function initEditableCourseMap() {
-  map = initMap();
 	directionsService = new google.maps.DirectionsService();
 	directionsRenderer = new google.maps.DirectionsRenderer();
-	sortSpotList(spotsInfo);
+	switch (spots.length) {
+		case 0:
+			map = initMap();
+			break;
+		case 1:
+			map = initMap(spots[0].latitude, spots[0].longitude);
+			break;
+		default:
+			map = initMap(spots[0].latitude, spots[0].longitude);
+			updateMap(spots);
+	}
 }
 
-const sortSpotList = (spotsInfo) => {
-	spotsInfo.sort((a, b) => {
-		return a.sortNumber - b.sortNumber;
-	});
+const updateMap = (spots) => {
+	switch (spots.length) {
+		case 0:
+			marker.setMap(null);
+			break;
+		case 1:
+			directionsRenderer.setMap(null);
+			marker = setMarker(map, spots[0].latitude, spots[0].longitude);
+			map.panTo(new google.maps.LatLng(spots[0].latitude, spots[0].longitude));
+			map.setZoom(15);
+			break;
+		default:
+			if (!typeof marker === undefined) { marker.setMap(null); }
+			let length = spots.length;
 
-	let length = spotsInfo.length;
+			let originLatLng = new google.maps.LatLng(spots[0].latitude, spots[0].longitude);
+			let destinationLatLng = new google.maps.LatLng(spots[length - 1].latitude, spots[length - 1].longitude);
 
-	let originLatLng = new google.maps.LatLng(spotsInfo[0].lat, spotsInfo[0].lng);
-	let destinationLatLng = new google.maps.LatLng(spotsInfo[length - 1].lat, spotsInfo[length - 1].lng);
+			let waypoints = [];
+			let waypointsInfo = spots.slice(1, length -1);
+			for (let i = 0; i < waypointsInfo.length; i++) {
+				waypoints.push({
+					location: new google.maps.LatLng(waypointsInfo[i].latitude, waypointsInfo[i].longitude),
+					stopover: true
+				});
+			}
 
-	let waypoints = [];
-	let waypointsInfo = spotsInfo.slice(1, length -1);
-	for (let i = 0; i < waypointsInfo.length; i++) {
-		waypoints.push({
-			location: new google.maps.LatLng(waypointsInfo[i].lat, waypointsInfo[i].lng),
-			stopover: (waypointsInfo[i].stopover == "true") ? true : false,
-		});
-	}
+			let request = {
+				origin: originLatLng,
+				destination: destinationLatLng,
+				waypoints: waypoints,
+				travelMode: google.maps.TravelMode.DRIVING,
+				avoidHighways: avoidHighways,
+				avoidTolls: avoidTolls,
+				drivingOptions: {
+					departureTime: new Date(departureTime)
+				},
+			};
 
-	let request = {
-		origin: originLatLng,
-		destination: destinationLatLng,
-		waypoints: waypoints,
-		travelMode: google.maps.TravelMode.DRIVING,
-	};
-
-	directionsService.route(request, (result, status) => {
-		if (status == google.maps.DirectionsStatus.OK) {
-			directionsRenderer.setOptions({
-				preserveViewport: false
+			directionsService.route(request, (result, status) => {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsRenderer.setOptions({
+						preserveViewport: false
+					});
+					directionsRenderer.setDirections(result);
+					directionsRenderer.setMap(map);
+				}
 			});
-			directionsRenderer.setDirections(result);
-			directionsRenderer.setMap(map);
-		}
-	});
+	}
 }

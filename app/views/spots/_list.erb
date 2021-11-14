@@ -1,0 +1,14 @@
+<ul class="spot-list__list">
+  <% spots.each_with_index do |spot, i| %>
+    <li id=<%= i %> class="spot-list__item">
+      <%= spot.name %>
+      <button class="spot-list__item-delete">削除</button>
+    </li>
+  <% end %>
+</ul>
+
+<style>
+.spot-list__list{
+  padding: 10px;
+}
+</style>

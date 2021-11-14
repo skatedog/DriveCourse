@@ -4,6 +4,7 @@ class Vehicle < ApplicationRecord
   mount_uploaders :vehicle_images, VehicleImagesUploader
 
   belongs_to :user
+  has_many :courses
 
   validates :user_id, presence: true
   validates :use_for, presence: true
