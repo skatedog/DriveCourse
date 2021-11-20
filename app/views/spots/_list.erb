@@ -1,14 +1,11 @@
-<ul class="spot-list__list">
-  <% spots.each_with_index do |spot, i| %>
-    <li id=<%= i %> class="spot-list__item">
-      <%= spot.name %>
-      <button class="spot-list__item-delete">削除</button>
-    </li>
-  <% end %>
-</ul>
-
-<style>
-.spot-list__list{
-  padding: 10px;
-}
-</style>
+<div class="place-list place-list--spot">
+  <div class="place-list__title">ドライブコース</div>
+  <ul class="place-list__list place-list__list--spot">
+    <% spots.each_with_index do |spot, i| %>
+      <li id=<%= i %> class="place-list__item">
+        <div class="place-list__text"><%= spot.name %></div>
+        <button class="place-list__item-delete">×</button>
+      </li>
+    <% end %>
+  </ul>
+</div>

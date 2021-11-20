@@ -1,0 +1,85 @@
+.place-list {
+  flex: 1;
+  display:flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  padding: 0px 5px;
+  &--place {
+    margin-right: 5px;
+  }
+  &--spot {
+    margin-left: 5px;
+  }
+  &__title {
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  &__list {
+    flex-grow: 1;
+    flex-basis: 0;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE, Edge 対応 */
+    scrollbar-width: none; /* Firefox 対応 */
+    &::-webkit-scrollbar {
+      /* Chrome, Safari 対応 */
+      display: none;
+    }
+    &--place {
+    }
+    &--spot {
+    }
+  }
+  &__item {
+    display: flex;
+    border-bottom: solid 1px dimgray;
+    font-size: 14px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    word-wrap: break-word;
+    &:hover {
+      transform: scale(1.03, 1.03);
+    }
+  }
+  &__text {
+    flex: 1;
+    word-wrap: break-word;
+  }
+  &__item-delete {
+    font-size: 16px;
+    line-height: 16px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    margin: 5px 0px 5px 5px;
+    text-align: center;
+    &:hover {
+      background-color: grey;
+      color: white;
+    }
+  }
+  &__name {
+    flex: 1;
+    word-wrap: break-word;
+  }
+  &__item-delete-link {
+    font-size: 16px;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    margin: 5px 0px 5px 5px;
+    text-align: center;
+    &:hover {
+      background-color: grey;
+      color: white;
+    }
+  }
+}

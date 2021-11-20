@@ -1,0 +1,16 @@
+.box {
+  width: 100%;
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__item {
+    height: 500px;
+  }
+  &__item-400 {
+    height: 400px;
+  }
+  &__item-520 {
+    height: 520px;
+  }
+}

@@ -1,4 +1,40 @@
-<h1>ユーザー情報</h1>
-<%= render @user %>
-<h1>ユーザー車両</h1>
-<%= render @user.vehicles %>
+<div class="my-page">
+  <div class="my-page__info">
+    <div class="my-page__title">Owner</div>
+    <div class="my-page__user">
+      <%= render @user %>
+    </div>
+    <div class="my-page__vehicle">
+      <div class="my-page__title">
+        Car
+        <div class="my-page__new">
+          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "car") %>
+        </div>
+      </div>
+      <% if @user.vehicles.car.present? %>
+        <div class="vehicle-slider">
+          <%= render @user.vehicles.car %>
+        </div>
+      <% else %>
+        <div class="vehicle vehicle--new"></div>
+      <% end %>
+    </div>
+    <div class="my-page__vehicle">
+      <div class="my-page__title">
+        Bike
+        <div class="my-page__new">
+          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "motorcycle") %>
+        </div>
+      </div>
+      <% if @user.vehicles.motorcycle.present? %>
+        <%= render @user.vehicles.motorcycle %>
+      <% else %>
+        <div class="vehicle vehicle--new"></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="my-page__course">
+    <div class="my-page__title">Course</div>
+    <%= render "courses/table", courses: @courses %>
+  </div>
+</div>

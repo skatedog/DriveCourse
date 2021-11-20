@@ -8,13 +8,13 @@ class VehiclesController < ApplicationController
 
   def new
     @vehicle = current_user.vehicles.new
+    @vehicle.category = params[:category]
   end
 
   def create
     @vehicle = current_user.vehicles.new(vehicle_params)
-    p @vehicle
     if @vehicle.save
-      redirect_to user_vehicle_path(@vehicle.user, @vehicle)
+      redirect_to current_user
     else
       render :new
     end
@@ -27,7 +27,7 @@ class VehiclesController < ApplicationController
   def update
     @vehicle = current_user.vehicles.find(params[:id])
     if @vehicle.update(vehicle_params)
-      redirect_to user_vehicle_path(@vehicle.user, @vehicle)
+      redirect_to current_user
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class VehiclesController < ApplicationController
 
   def destroy
     current_user.vehicles.find(params[:id]).destroy
-    redirect_to user_path(current_user)
+      redirect_to current_user
   end
 
   private

@@ -1,0 +1,16 @@
+<div class="course-table">
+  <div class="course-table__table">
+    <table class="course">
+      <tr class="course__header-row">
+        <th class="course__user-head"></th>
+        <th class="course__info-head"></th>
+        <th class="course__record-botton-head"></th>
+        <th class="course__delete-botton-head"></th>
+      </tr>
+      <%= render courses %>
+    </table>
+  </div>
+  <div class="course-table__page">
+    <%= paginate courses %>
+  </div>
+</div>

@@ -10,14 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_07_010246) do
+ActiveRecord::Schema.define(version: 2021_11_19_164812) do
+
+  create_table "course_likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_likes_on_course_id"
+    t.index ["user_id"], name: "index_course_likes_on_user_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "vehicle_id"
     t.string "name", null: false
     t.text "introduction"
-    t.boolean "is_protected", default: true, null: false
+    t.boolean "is_recorded", default: false, null: false
     t.boolean "avoid_highways", default: false, null: false
     t.boolean "avoid_tolls", default: false, null: false
     t.datetime "departure", null: false
@@ -41,6 +50,15 @@ ActiveRecord::Schema.define(version: 2021_11_07_010246) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "spot_likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_spot_likes_on_spot_id"
+    t.index ["user_id"], name: "index_spot_likes_on_user_id"
+  end
+
   create_table "spots", force: :cascade do |t|
     t.integer "course_id", null: false
     t.integer "genre_id"
@@ -51,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_11_07_010246) do
     t.decimal "longitude", precision: 10, scale: 7, null: false
     t.string "address", null: false
     t.boolean "stopover", default: true, null: false
-    t.json "place_images"
+    t.json "spot_images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_11_07_010246) do
     t.string "name", null: false
     t.string "user_image"
     t.text "introduction"
+    t.boolean "is_private", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

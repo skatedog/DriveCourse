@@ -1,0 +1,33 @@
+.my-page {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  &__title {
+    display: flex;
+    margin: 20px 0px 10px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  &__info {
+    width: 700px;
+  }
+  &__user {
+    margin-top: 10px;
+  }
+  &__vehicle {
+    margin-top: 10px;
+  }
+  &__course {
+    height: 740px;
+    width: 700px;
+    margin-left: 40px;
+  }
+  &__new {
+    line-height: 40px;
+    font-size: 16px;
+    margin: 0px 10px 0px auto;
+    letter-spacing: 1px;
+  }
+}

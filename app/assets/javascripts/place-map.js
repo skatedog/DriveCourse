@@ -86,3 +86,14 @@ const UpdatePlaceMap = (latLng, address) => {
   map.panTo(latLng);
   marker.setPosition(latLng);
 }
+
+$(() => {
+  $(document).on("click", ".place-list__item--place", function() {
+    let id = $(this).attr("id");
+    let place = places.find((place) => {
+      return place.id == id;
+    });
+    let latLng = new google.maps.LatLng(place.latitude, place.longitude);
+    changeByLatLng(latLng);
+  });
+});

@@ -1,3 +1,4 @@
-<%= link_to place.name, place_path(place), data: { turbolinks: false } %>
-<%= link_to "編集", edit_place_path(place), data: { turbolinks: false } %>
-<%= link_to "削除", place_path(place), method: :delete, data: {confirm: "本当に削除しますか？" } %><br>
+<li id=<%= place.id %> class="place-list__item place-list__item--place">
+  <div class="place-list__text"><%= place.name %></div>
+  <%= link_to "×", place_path(place), method: :delete, remote: true, class: "place-list__item-delete-link" %>
+</li>

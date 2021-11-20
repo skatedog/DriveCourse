@@ -1,14 +1,26 @@
-<h1>ユーザー編集</h1>
-<%= render "layouts/error_messages", resource: @user %>
-<%= form_with model: @user, local: true do |f| %>
-  <%= f.label :user_image %>
-  <%= f.file_field :user_image %><br>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
-  <%= f.label :email %>
-  <%= f.text_field :email %><br>
-  <%= f.label :introduction %>
-  <%= f.text_area :introduction %><br>
-  <%= f.submit %>
-<% end %>
-<%= link_to "退会する", user_registration_path, method: :delete, data: { confirm: "本当に退会しますか？" } %>
+<div class="box box--center">
+  <div class="box__item">
+    <%= render "layouts/error_messages", resource: @user %>
+    <%= form_with model: @user, local: true, class: "form" do |f| %>
+      <div class="form__group form__group--none">
+        <%= f.label :user_image, "画像登録", class:"form__label" %>
+        <%= f.file_field :user_image, class: "form__file" %>
+      </div>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form__field", placeholder: "ニックネーム" %>
+      <%= f.email_field :email, autocomplete: "email", class: "form__field", placeholder: "メールアドレス" %>
+      <%= f.text_area :introduction, class: "form__field form__field--area", placeholder: "自己紹介" %>
+      <div class="form__group form__group--none">
+        <div class="form__radio">
+          <%= f.radio_button :is_private, TRUE %>
+          <%= f.label :is_private, "非公開", value: TRUE %>
+        </div>
+        <div class="form__radio">
+          <%= f.radio_button :is_private, FALSE %>
+          <%= f.label :is_private, "公開", value: FALSE %>
+        </div>
+      </div>
+      <%= f.submit "登録", class: "form__button" %>
+      <%= link_to "退会する", user_registration_path, method: :delete, data: { confirm: "本当に退会しますか？" }, class: "form__link" %>
+    <% end %>
+  </div>
+</div>
