@@ -1,0 +1,10 @@
+<h2>Sign up</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form" }) do |f| %>
+  <%= render "layouts/error_messages", resource: resource %>
+  <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form__field", placeholder: "ニックネーム" %>
+  <%= f.email_field :email, autocomplete: "email", class: "form__field", placeholder: "メールアドレス" %>
+  <%= f.password_field :password, autocomplete: "new-password", class: "form__field", placeholder: "パスワード(6文字以上で入力してください)" %>
+  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form__field", placeholder: "パスワード(確認用)" %>
+  <%= f.submit "登録する", class: "form__button"  %>
+<% end %>
+<%= render "users/shared/links" %>

@@ -1,0 +1,28 @@
+<script>
+let lat;
+let lng;
+let callback;
+
+<% if place.valid? %>
+lat = "<%= place.latitude %>"
+lng = "<%= place.longitude %>"
+<% end %>
+
+if (location.pathname == "<%= "/places/#{place.id}" %>") {
+  callback = "initPlaceMap";
+} else {
+  callback = "initEditablePlaceMap";
+}
+
+
+$(() => {
+  places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
+});
+
+
+let script = document.createElement('script');
+script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=" + callback;
+script.async = true;
+script.defer = true;
+document.body.appendChild(script);
+</script>

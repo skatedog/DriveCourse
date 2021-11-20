@@ -36,6 +36,28 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# ユーザー認証機能
+gem 'devise'
+
+# 画像投稿機能
+gem 'carrierwave'
+gem 'mini_magick'
+
+# 数値に文字を関連付け
+gem "enum_help"
+
+# 環境変数設定用
+gem 'dotenv-rails'
+
+# DOM操作用
+gem 'jquery-rails'
+
+# ドラッグアンドドロップ用
+gem 'jquery-ui-rails'
+
+# ページング機能用
+gem "kaminari"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -56,6 +78,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

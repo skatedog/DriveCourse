@@ -1,0 +1,30 @@
+<%= render "layouts/error_messages", resource: course %>
+<%= form_with model: [current_user, course], local: true, class: "form" do |f| %>
+  <%= f.text_field :name, class: "form__field", placeholder: "コース名"  %>
+  <%= f.text_area :introduction, class: "form__field form__field--area", placeholder: "紹介文" %>
+  <%= f.collection_select :vehicle_id, current_user.vehicles, :id, :name, { include_blank: "車両を選択してください" }, { class: "form__select" } %>
+  <div class="form__group">
+    <%= f.label :departure, "出発日時", class: "form__label" %>
+    <%= f.datetime_field :departure, value: (course.departure || Time.current).strftime("%Y-%m-%dT%H:%M"), class: "form__datetime" %>
+  </div>
+  <div class="form__group form__group--none">
+    <div class="form__group form__group--half form__group--none">
+      <div class="form__check">
+        <%= f.check_box :avoid_highways, { class: "course-form__check-box" } , true, false %>
+        <%= f.label :avoid_highways, "高速道路を使わない", class: "course-form__check-label" %>
+      </div>
+    </div>
+    <div class="form__group form__group--half form__group--none">
+      <div class="form__check">
+        <%= f.check_box :avoid_tolls, { class: "course-form__check-box" } , true, false %>
+        <%= f.label :avoid_tolls, "有料道路を使わない", class: "course-form__check-label" %>
+      </div>
+    </div>
+  </div>
+  <div class="form__table">
+    <%= render "places/list" %>
+    <%= render "spots/list", course: course, spots: course.spots.order(:sort_number) %>
+  </div>
+  <%= f.hidden_field :spots, value: course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address]) %>
+  <%= f.submit "保存" , class: "form__button" %>
+<% end %>

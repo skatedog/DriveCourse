@@ -1,0 +1,70 @@
+.course {
+  width: 100%;
+  border-collapse: collapse;
+  &__header-row {
+    height: 0px;
+  }
+  &__data-row {
+    height: 90px;
+    border-bottom: solid 1px silver;
+    &:hover {
+      background-color: whitesmoke;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  &__user-head {
+    width: 200px;
+  }
+  &__info-head {
+  }
+  &__record-botton-head {
+    width: 100px;
+  }
+  &__delete-botton-head {
+    width: 100px;
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+  }
+  &__user-logo {
+    margin-left: 10px;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  &__user-name {
+    margin-left: 10px;
+    word-break: break-all;
+  }
+  &__name {
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px;
+    word-break: break-all;
+  }
+  &__introduction {
+    margin: 0px 10px 10px;
+    word-break: break-all;
+  }
+  &__button {
+    margin: 0px 10px;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    width: 80px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    letter-spacing: 1px;
+    &--red {
+      background-color: gainsboro;
+    }
+    &--gray {
+      background-color: lightblue;
+    }
+  }
+}

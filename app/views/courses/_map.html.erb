@@ -1,0 +1,23 @@
+<script>
+
+let spots
+let places
+let avoidHighways = <%= course.avoid_highways %>
+let avoidTolls = <%= course.avoid_tolls %>
+let courseDepartureTime = <%= course.departure.to_f * 1000 %>
+let departureTime = Date.now() < courseDepartureTime ? courseDepartureTime : Date.now();
+
+$(() => {
+  spots = <%= raw(course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address])) %>;
+  places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
+});
+
+callback = "initEditableCourseMap";
+
+let script = document.createElement('script');
+script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=" + callback;
+script.async = true;
+script.defer = true;
+document.body.appendChild(script);
+
+</script>

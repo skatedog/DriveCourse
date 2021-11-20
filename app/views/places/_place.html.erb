@@ -1,0 +1,4 @@
+<li id=<%= place.id %> class="place-list__item place-list__item--place">
+  <div class="place-list__text"><%= place.name %></div>
+  <%= link_to "×", place_path(place), method: :delete, remote: true, class: "place-list__item-delete-link" %>
+</li>

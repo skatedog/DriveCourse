@@ -1,0 +1,141 @@
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 20px 50px 50px 50px;
+  width: 500px;
+  background: white;
+  color: #5d627b;
+  box-shadow: 0px 0px 10px;
+  border: 1px solid black;
+  position: relative;
+  &__group {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: solid 2px dimgray;
+    padding-bottom: 10px;
+    &--none {
+      border: none;
+    }
+    &--half {
+      width: 50%;
+    }
+  }
+  &__field {
+    margin-top: 20px;
+    width: 400px;
+    height: 40px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: black;
+    border: none;
+    border-bottom: 2px solid dimgray;
+    &--area {
+      height: 60px;
+    }
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid skyblue;
+    }
+  }
+  &__small-field {
+    flex: 1;
+    height: 40px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: black;
+    border: none;
+    border-bottom: 2px solid dimgray;
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid skyblue;
+    }
+  }
+  &__check {
+    padding: 20px 30px 0px 0px;
+    text-align: left;
+  }
+  &__radio {
+    padding: 30px 20px 0px 0px;
+  }
+  &__select {
+    margin-top: 20px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-bottom: solid 2px dimgray;
+    outline: none;
+    font-size: 16px;
+    appearance: none;
+  }
+  &__label {
+    padding-top: 20px;
+    width: 30%;
+  }
+  &__file {
+    padding-top: 20px;
+    width: 70%;
+  }
+  &__datetime {
+    border: none;
+    margin-top: 20px;
+    width: 70%;
+    text-align: right;
+    font-size: 18px;
+  }
+  &__table {
+    flex: 1;
+    display: flex;
+  }
+  &__button {
+    width: 180px;
+    height: 40px;
+    margin: 30px auto 0px;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px 40px;
+    background: white;
+    color: black;
+    border: 2px solid dimgray;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 5px;
+    transition: all 0.5s;
+    &:hover {
+      color: white;
+      background: dimgray;
+      transform: scale(1.1);
+    }
+    &--half {
+      width: 170px;
+      padding: 5px 0px;
+    }
+  }
+  &__small-button {
+    font-size: 16px;
+    margin: 5px 0px 0px 10px;
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    background: white;
+    color: black;
+    border: 2px solid dimgray;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 5px;
+    &:hover {
+      color: white;
+      background: dimgray;
+    }
+  }
+  &__link {
+    position: absolute;
+    top: calc(100% - 40px);
+    left: calc(100% - 80px);
+  }
+}

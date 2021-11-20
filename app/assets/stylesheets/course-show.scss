@@ -1,0 +1,23 @@
+.course-show {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px);
+  &__map {
+    width: calc(100vw - 800px);
+    height: calc(100vh - 100px);
+  }
+  &__spot {
+    background-color: whitesmoke;
+    padding: 0 100px;
+    width: 800px;
+    height: calc(100vh - 100px);
+    z-index: 10;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE, Edge 対応 */
+    scrollbar-width: none; /* Firefox 対応 */
+    &::-webkit-scrollbar {
+      /* Chrome, Safari 対応 */
+      display: none;
+    }
+  }
+}

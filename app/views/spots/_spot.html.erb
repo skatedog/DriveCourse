@@ -1,0 +1,29 @@
+<div class="spot">
+  <% if spot.spot_images? %>
+    <div class="image-slider">
+      <% spot.spot_images.each do |image| %>
+          <%= image_tag image.url %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= image_tag "default/image.png", class: "spot__image" %>
+  <% end %>
+  <div class="spot__name"><%= spot.name %></div>
+  <% if spot.genre.present? %>
+    <div class="spot__genre"><%= spot.genre.name %></div>
+  <% end %>
+  <% if spot.course.user == current_user %>
+    <%= link_to "編集", edit_user_course_spot_path(current_user, spot.course, spot), class: "spot__edit" %>
+  <% end %>
+  <div class="spot__introduction"><%= simple_format(spot.introduction) %></div>
+  <div class="spot__course-info">
+    <% if spot.course.user.user_image? %>
+      <%= image_tag spot.course.user.user_image.url, class: "spot__user-icon" %>
+    <% else %>
+      <%= image_tag "default/user.png", class: "spot__user-icon" %>
+    <% end %>
+    <div class="spot__user"><%= spot.course.user.name %></div>
+    <div class="spot__course-name"><%= spot.course.name %> より</div>
+    <%= render "spot_likes/button", spot: spot %>
+  </div>
+</div>

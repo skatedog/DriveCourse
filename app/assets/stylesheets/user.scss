@@ -1,0 +1,45 @@
+.user {
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  border-left: 5px solid gray;
+  background: whitesmoke;
+  position: relative;
+  &__logo {
+    background-color: white;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }
+  &__info {
+    padding-left: 30px;
+  }
+  &__name {
+    padding-right: 70px;
+    font-size: 20px;
+    word-break: break-all;
+    &:after {
+      content: "";
+      display: block;
+      height: 4px;
+      background: linear-gradient(to right, dimgray, transparent);
+    }
+  }
+  &__introduction {
+    padding-top: 20px;
+    word-break: break-all;
+  }
+  &__edit {
+    background-color: gainsboro;
+    text-align: center;
+    border-radius: 5px;
+    height: 34px;
+    line-height: 34px;
+    width: 60px;
+    position: absolute;
+    top: 20px;
+    left: calc(100% - 80px);
+    display: block;
+    letter-spacing: 1px;
+  }
+}

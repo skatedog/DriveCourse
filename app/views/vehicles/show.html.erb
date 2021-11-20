@@ -1,0 +1,16 @@
+<h1>車両詳細</h1>
+<%= @vehicle.name %>
+<% if @vehicle.vehicle_images? %>
+  <% @vehicle.vehicle_images.each do |image| %>
+    <%= image_tag image.url %>
+  <% end %>
+<% else %>
+  <%= image_tag "default/car.png" %>
+<% end %>
+<%= @vehicle.use_for_i18n %>
+<%= @vehicle.category_i18n %>
+<%= @vehicle.maker %>
+<%= simple_format(@vehicle.introduction) %>
+<% if @vehicle.user == current_user %>
+  <%= link_to "編集", edit_user_vehicle_path(@vehicle.user, @vehicle) %>
+<% end %>
