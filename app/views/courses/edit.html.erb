@@ -1,5 +1,5 @@
-<h1>Courses#edit</h1>
-<%= render "courses/form", course: @course %>
-<%= render "places/list" %>
-<%= render "spots/list", course: @course, spots: @course.spots.order(:sort_number) %>
+<div class="course-edit">
+  <div class="course-edit__form"><%= render "courses/form", course: @course %></div>
+  <div id="map" class="course-edit__map"></div>
+</div>
 <%= render "courses/map", course: @course %>

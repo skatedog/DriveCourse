@@ -1,0 +1,9 @@
+<% if course.liked_by?(current_user) %>
+  <%= link_to user_course_course_likes_path(current_user, course), method: :delete, remote: true, class: "like", id: "course_like-#{course.id}" do %>
+    <%= render partial: "layouts/like", locals: { count: course.course_likes.size } %>
+  <% end %>
+<% else %>
+  <%= link_to user_course_course_likes_path(current_user, course), method: :post, remote: true, class: "like", id: "course_like-#{course.id}" do %>
+    <%= render partial: "layouts/nolike", locals: { count: course.course_likes.size } %>
+  <% end %>
+<% end %>

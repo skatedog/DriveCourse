@@ -1,18 +1,29 @@
-<%= render "layouts/error_messages", resource: vehicle %>
-<%= form_with model: [current_user, vehicle], local: true do |f| %>
-  <%= f.label :vehicle_images %>
-  <%= f.file_field :vehicle_images, multiple: true %><br>
-  <%= f.label :use_for %>
-  <%= f.collection_select :use_for, Vehicle.use_fors_i18n, :first, :last %>
-  <%= f.label :category %>
-  <%= f.collection_select :category, Vehicle.categories_i18n, :first, :last %>
-  <%= f.label :maker %>
-  <%= f.text_field :maker %><br>
-  <%= f.label :displacement %>
-  <%= f.text_field :displacement %><br>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
-  <%= f.label :introduction %>
-  <%= f.text_area :introduction %><br>
-  <%= f.submit %>
-<% end %>
+<div class="box box--center">
+  <div class="box__item-520">
+    <%= render "layouts/error_messages", resource: vehicle %>
+    <%= form_with model: [current_user, vehicle], local: true, class: "form" do |f| %>
+      <div class="form__group form__group--none">
+        <%= f.label :vehicle_images, "画像登録", class:"form__label" %>
+        <%= f.file_field :vehicle_images, multiple: true, class: "form__file" %>
+      </div>
+      <div class="form__group form__group--none">
+        <%= f.collection_radio_buttons :use_for, Vehicle.use_fors_i18n, :first, :last do |b| %>
+          <div class="form__check">
+            <%= b.label { b.radio_button + " " + b.text } %>
+          </div>
+        <% end %>
+      </div>
+      <%= f.text_field :maker, class: "form__field", placeholder: "メーカー" %>
+      <%= f.text_field :displacement, class: "form__field", placeholder: "排気量(cc)" %>
+      <%= f.text_field :name, class: "form__field", placeholder: "車種" %>
+      <%= f.text_area :introduction, class: "form__field form__field--area", placeholder: "紹介文" %>
+      <%= f.hidden_field :category %>
+      <%= f.submit "登録", class: "form__button" %>
+      <% if vehicle.id.present? %>
+        <div class="form__link">
+          <%= link_to "削除" , user_vehicle_path(vehicle.user, vehicle), method: :delete, data: {confirm: "本当に削除しますか？" } %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

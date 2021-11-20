@@ -1,34 +1,10 @@
 <h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form" }) do |f| %>
   <%= render "layouts/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :name, "ニックネーム" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+  <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form__field", placeholder: "ニックネーム" %>
+  <%= f.email_field :email, autocomplete: "email", class: "form__field", placeholder: "メールアドレス" %>
+  <%= f.password_field :password, autocomplete: "new-password", class: "form__field", placeholder: "パスワード(6文字以上で入力してください)" %>
+  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form__field", placeholder: "パスワード(確認用)" %>
+  <%= f.submit "登録する", class: "form__button"  %>
 <% end %>
-
 <%= render "users/shared/links" %>

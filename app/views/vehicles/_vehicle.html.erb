@@ -1,8 +1,22 @@
-<%= vehicle.maker %>
-<%= link_to vehicle.name, user_vehicle_path(vehicle.user, vehicle) %>
-<%= simple_format(vehicle.introduction) %>
-<% if vehicle.vehicle_images? %>
-  <%= image_tag vehicle.vehicle_images.first.url %>
-<% else %>
-  <%= image_tag "default/car.png" %>
-<% end %>s
+<div>
+  <div class="vehicle">
+    <div class="vehicle__info">
+      <div class="vehicle__name"><%= vehicle.maker %> / <%= link_to vehicle.name, user_vehicle_path(vehicle.user, vehicle) %></div>
+      <div class="vehicle__displacement">排気量：<%= vehicle.displacement %>cc</div>
+      <div class="vehicle__introduction"><%= simple_format(vehicle.introduction) %></div>
+    </div>
+    <% if vehicle.vehicle_images? %>
+    <% p vehicle.vehicle_images %>
+      <%= image_tag vehicle.vehicle_images.first.url, class: "vehicle__logo"  %>
+    <% else %>
+      <% if vehicle.car? %>
+        <%= image_tag "default/car.png", class: "vehicle__logo" %>
+      <% else %>
+        <%= image_tag "default/bike.png", class: "vehicle__logo" %>
+      <% end %>
+    <% end %>
+    <% if vehicle.user == current_user %>
+      <%= link_to "編集", edit_user_vehicle_path(current_user, vehicle), class: "vehicle__edit" %>
+    <% end %>
+  </div>
+</div>

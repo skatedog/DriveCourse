@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @courses = @user.courses.order(created_at: :desc).page(params[:page])
   end
 
   def edit
@@ -35,6 +36,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:user_image, :name, :email, :introduction)
+      params.require(:user).permit(:user_image, :name, :email, :introduction, :is_private)
     end
 end

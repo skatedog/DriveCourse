@@ -1,0 +1,5 @@
+$(() => {
+  $(".place-list__list").append("<%= j(render @place ) %>");
+  places.push(<%= raw(@place.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>);
+  $(".form__small-field").val("");
+});

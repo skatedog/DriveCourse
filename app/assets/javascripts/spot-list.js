@@ -30,13 +30,13 @@ $(() => {
       updateMap(spots);
     }
   });
-  $( ".place-list__list" ).sortable({
+  $( ".place-list__list--place" ).sortable({
     opacity: 0.5,
     scroll: false,
-    connectWith: ".spot-list__list",
+    connectWith: ".place-list__list--spot",
     });
   // 削除
-  $(document).on("click", ".spot-list__item-delete", function() {
+  $(document).on("click", ".place-list__item-delete", function() {
     oldSortNumber = $(this).parent().attr("id")
     let placeName = spots[oldSortNumber].name;
 
@@ -53,20 +53,20 @@ $(() => {
       return place.name == placeName;
     });
 
-    $(".place-list__list").append(`<li id=${newPlace.id} class="place-list__item ui-sortable-handle">${newPlace.name}</li>`);
+    $(".place-list__list--place").append(`<li id=${newPlace.id} class="place-list__item ui-sortable-handle">${newPlace.name}</li>`);
 
     sortSpots(spots);
     refreshItemIds();
     updateMap(spots);
   });
-  $( ".spot-list__list" ).sortable({
+  $( ".place-list__list--spot" ).sortable({
     opacity: 0.5,
     scroll: false,
     update: (event, ui) => {
       // 並び替え
       if (ui.sender == null) {
         oldSortNumber = ui.item[0].id;
-        newSortNumber = $(".spot-list__list").children().index(ui.item[0]);
+        newSortNumber = $(".place-list__list--spot").children().index(ui.item[0]);
         spots.forEach((spot) => {
           if (spot.sort_number == oldSortNumber) {
             spot.sort_number = newSortNumber;
@@ -84,7 +84,7 @@ $(() => {
     receive: (event, ui) => {
       // 追加
       newPlaceId = ui.item[0].id;
-      newSortNumber = $(".spot-list__list").children().index(ui.item[0]);
+      newSortNumber = $(".place-list__list--spot").children().index(ui.item[0]);
       spots.forEach((spot) => {
         if (spot.sort_number >= newSortNumber) {
           spot.sort_number ++;
@@ -97,8 +97,12 @@ $(() => {
       delete newSpot.id;
       newSpot.sort_number = newSortNumber;
       spots.push(newSpot);
-    	$(".spot-list__list").children().eq(newSortNumber).append("<button class='spot-list__item-delete'>削除</button>");
-    	$(".spot-list__list").children().eq(newSortNumber).addClass("ui-sortable-handle");
+
+      let newSpotItem = $(".place-list__list--spot").children().eq(newSortNumber);
+      newSpotItem.empty();
+    	newSpotItem.append("<div class='place-list__text'>" + newSpot.name + "</div>");
+    	newSpotItem.append("<button class='place-list__item-delete'>×</button>");
+    	newSpotItem.attr("class", "place-list__item ui-sortable-handle");
     },
   });
 });
@@ -110,7 +114,7 @@ const sortSpots = (spots) => {
 }
 
 const refreshItemIds = () => {
-  $(".spot-list__list").children().each((i, item) =>{
+  $(".place-list__list--spot").children().each((i, item) =>{
     $(item).attr("id", i);
   });
   $("#course_spots").val(JSON.stringify(spots));

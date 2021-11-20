@@ -1,0 +1,51 @@
+.vehicle {
+  width: 100%;
+  border-left: 5px solid gray;
+  background: whitesmoke;
+  display: flex;
+  padding: 20px;
+  position: relative;
+  &__info {
+    padding-right: 20px;
+  }
+  &__name {
+    padding-right: 70px;
+    font-size: 20px;
+    word-break: break-all;
+    &:after {
+      content: "";
+      display: block;
+      height: 4px;
+      background: linear-gradient(to right, dimgray, transparent);
+    }
+  }
+  &__displacement {
+    padding-top: 5px;
+    word-break: break-all;
+  }
+  &__introduction {
+    padding-top: 10px;
+    word-break: break-all;
+  }
+  &__logo {
+    margin-left: auto;
+    width: 240px;
+    height: 160px;
+  }
+  &__edit {
+    background-color: gainsboro;
+    text-align: center;
+    border-radius: 5px;
+    height: 34px;
+    line-height: 34px;
+    width: 60px;
+    position: absolute;
+    left: calc(100% - 350px);
+    letter-spacing: 1px;
+    display: block;
+    letter-spacing: 1px;
+  }
+  &--new {
+    height: 200px;
+  }
+}

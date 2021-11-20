@@ -1,11 +1,19 @@
 class SpotsController < ApplicationController
-  def create
-    @course = current_user.courses.find(params[:course_id])
-    @spot = @course.add_spot(params[:index].to_i, params[:place_id].to_i)
+  def edit
+    @spot = Spot.find(params[:id])
   end
 
-  def destroy
-    @course = current_user.courses.find(params[:course_id])
-    @old_index = @course.remove_spot(params[:id].to_i)
+  def update
+    @spot = Spot.find(params[:id])
+    if @spot.update(spot_params)
+      redirect_to user_course_path(current_user, @spot.course)
+    else
+      render :edit
+    end
   end
+
+  private
+    def spot_params
+      params.require(:spot).permit(:genre_id, :name, :introduction, spot_images: [])
+    end
 end

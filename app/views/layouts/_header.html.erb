@@ -1,13 +1,25 @@
-<header>
-  <ul>
-    <% if user_signed_in? %>
-      <li><%= link_to "マイページ", user_path(current_user) %></li>
-      <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-      <li><%= link_to "車両新規登録", new_user_vehicle_path(current_user) %></li>
-      <li><%= link_to "マイプレイス", places_path %></li>
-      <li><%= link_to "プレイス登録", new_place_path, data: { turbolinks: false } %></li>
-      <li><%= link_to "マイドライブコース", user_courses_path(current_user) %></li>
-      <li><%= link_to "ドライブコース登録", new_user_course_path(current_user), data: { turbolinks: false } %></li>
+<header class="header">
+  <%= link_to homes_top_path do %>
+    <div class="logo">
+      <%= image_tag "logo/icon.svg", class: "logo__icon" %>
+      <%= image_tag "logo/text.png", class: "logo__text" %>
+    </div>
+  <% end %>
+  <ul class="header__list">
+    <%= link_to user_path(current_user), data: { turbolinks: false } do %>
+      <li class="header__item">マイページ</li>
+    <% end %>
+    <%= link_to homes_top_path  do %>
+      <li class="header__item">検　 索</li>
+    <% end %>
+    <%= link_to places_path, data: { turbolinks: false } do %>
+      <li class="header__item">プレイス登録</li>
+    <% end %>
+    <%= link_to new_user_course_path(current_user), data: { turbolinks: false } do %>
+      <li class="header__item">ドライブコース登録</li>
+    <% end %>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+      <li class="header__item">ログアウト</li>
     <% end %>
   </ul>
 </header>

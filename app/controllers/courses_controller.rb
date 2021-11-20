@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   def create
     @course = current_user.courses.create(course_params)
     @course.spots.create(spots_params)
-    redirect_to user_course_path(current_user, @course)
+    redirect_to user_path(current_user)
   end
 
   def edit
@@ -29,18 +29,25 @@ class CoursesController < ApplicationController
     @course = current_user.courses.find(params[:id])
     @course.update(course_params)
     @course.spots_update(spots_params)
-    redirect_to user_course_path(current_user, @course)
+    redirect_to user_path(current_user)
   end
 
   def destroy
     @course = current_user.courses.find(params[:id])
     @course.destroy
-    redirect_to user_courses_path(current_user)
+    redirect_to user_path(current_user)
+  end
+
+  def record
+    @course = Course.find(params[:id])
+    @course.is_recorded = true
+    @course.save
+    redirect_to user_course_path(current_user, @course)
   end
 
   private
     def course_params
-      params.require(:course).permit(:name, :introduction, :avoid_highways, :avoid_tolls, :departure)
+      params.require(:course).permit(:name, :introduction, :vehicle_id, :avoid_highways, :avoid_tolls, :departure)
     end
     def spots_params
       JSON.parse(params.require(:course).permit(:spots)[:spots])

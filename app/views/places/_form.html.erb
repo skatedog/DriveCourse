@@ -1,11 +1,22 @@
 <%= render "layouts/error_messages", resource: place %>
-<input id="form_word" type="textbox">
-<input type="button" value="検索" onclick="ChangeByFormWord()">
-<%= form_with model: place, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
-  <%= f.hidden_field :latitude %><br>
-  <%= f.hidden_field :longitude %><br>
-  <%= f.hidden_field :address %><br>
-  <%= f.submit %>
+<%= form_with model: place, class: "form" do |f| %>
+  <div class="form__group form__group--none">
+    <input class="form__small-field" id="form_word" type="text" placeholder="検索ワード">
+    <input class="form__small-button" type="button" value="検索" onclick="ChangeByFormWord()">
+  </div>
+  <div class="form__group form__group--none">
+    <%= f.text_field :name, class: "form__small-field", placeholder: "プレイス名" %>
+    <%= f.submit "保存" , class: "form__small-button" %>
+  </div>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :address %>
+  <div class="form__table">
+    <div class="place-list">
+      <div class="place-list__title">プレイス</div>
+      <ul class="place-list__list">
+        <%= render current_user.places %>
+      </ul>
+    </div>
+  </div>
 <% end %>
