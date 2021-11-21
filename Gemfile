@@ -44,7 +44,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 # 数値に文字を関連付け
-gem "enum_help"
+gem 'enum_help'
 
 # 環境変数設定用
 gem 'dotenv-rails'
@@ -56,7 +56,10 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # ページング機能用
-gem "kaminari"
+gem 'kaminari'
+
+# 画像ファイルアップロード用
+gem 'fog-aws'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
