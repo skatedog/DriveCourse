@@ -1,5 +1,5 @@
 class VehiclesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate
   before_action :set_my_vehicle, only: [:edit, :update, :destroy]
 
   def new

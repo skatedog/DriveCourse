@@ -21,7 +21,7 @@
       <%= f.submit "登録", class: "form__button" %>
       <% if vehicle.id.present? %>
         <div class="form__link">
-          <%= link_to "削除" , vehicle_path(vehicle.user, vehicle), method: :delete, data: {confirm: "本当に削除しますか？" } %>
+          <%= link_to "削除する" , vehicle_path(vehicle.user, vehicle), method: :delete, data: {confirm: "本当に削除しますか？" } %>
         </div>
       <% end %>
     <% end %>

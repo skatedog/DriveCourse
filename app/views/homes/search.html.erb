@@ -1,0 +1,27 @@
+<div class="search">
+  <% case params[:search_for] %>
+  <% when "spot" %>
+    <div class="search__form">
+      <%= render "homes/search_form" %>
+    </div>
+    <div class="search__spots-gallery">
+      <div class="search__spots">
+        <%= render @spots %>
+      </div>
+      <div class="search__page">
+        <%= paginate @spots %>
+      </div>
+    </div>
+  <% when "course" %>
+    <div class="search__form">
+      <%= render "homes/search_form" %>
+    </div>
+    <div class="search__courses">
+      <%= render "courses/table", courses: @courses %>
+    </div>
+  <% else %>
+    <div>
+      <%= render "homes/search_form" %>
+    </div>
+  <% end %>
+</div>

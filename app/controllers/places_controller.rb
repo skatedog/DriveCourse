@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate
 
   def index
     @place = Place.new

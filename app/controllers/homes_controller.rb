@@ -1,5 +1,8 @@
 class HomesController < ApplicationController
   def top
+  end
+
+  def search
     case search_params[:search_for]
     when "spot"
       @spots = Spot.search(search_params).page(params[:page])

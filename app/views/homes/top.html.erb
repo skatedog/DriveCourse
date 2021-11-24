@@ -1,21 +1,91 @@
 <div class="home">
-  <div class="home__form">
-    <%= render "homes/form" %>
+  <div class="home__main-visual">
+    <div class="home__catch-copy">
+      <%= image_tag "home/logo.png", class: "home__sub-title" %>
+    </div>
+    <div class="home__log-in-grid">
+      <div class="home__log-in-form">
+        <%= render "users/sessions/form" %>
+      </div>
+    </div>
   </div>
-  <% case params[:search_for] %>
-  <% when "spot" %>
-    <div class="home__spots-gallery">
-      <div class="home__spots">
-        <%= render @spots %>
-      </div>
-      <div class="home__page">
-        <%= paginate @spots %>
+
+  <div class="home__grid">
+    <div class="home__half-grid">
+      <div class="home__image">
+        <img src="course_new.png">
       </div>
     </div>
-  <% when "course" %>
-    <div class="home__courses">
-      <%= render "courses/table", courses: @courses %>
+    <div class="home__half-grid">
+      <div class="home__content">
+        <h1 class="home__heading">
+          自分にぴったりのドライブコースを作ろう
+        </h1>
+        <p class="home__text">
+          マイプレイス（行ってみたい場所一覧）から目的地を選択、<br>
+          共有されているドライブコースを追加して編集するだけで、<br>
+          オリジナルのドライブコースを作成することができます。
+        </p>
+      </div>
     </div>
-  <% else %>
-  <% end %>
+  </div>
+
+  <div class="home__grid">
+    <div class="home__half-grid">
+      <div class="home__content">
+        <h1 class="home__heading">
+          ドライブでの思い出を記録しよう
+        </h1>
+        <p class="home__text">
+          旅の思い出は、スポットごとに写真やコメントで記録することができます。<br>
+          アカウントを公開設定すると、すべてのユーザーに共有されます。<br>
+          いいねがたくさんつくと、検索結果で上位に表示されやすくなります。
+        </p>
+      </div>
+    </div>
+    <div class="home__half-grid">
+      <div class="home__image">
+        <img src="course.png">
+      </div>
+    </div>
+  </div>
+
+  <div class="home__grid">
+    <div class="home__half-grid">
+      <div class="home__image">
+        <img src="vechele.png">
+      </div>
+    </div>
+    <div class="home__half-grid">
+      <div class="home__content">
+        <h1 class="home__heading">
+          こだわりの車やバイクを登録しよう
+        </h1>
+        <p class="home__text">
+          所有している車やバイクの情報を登録することができます。<br>
+          自分と同じタイプの車やバイクに乗るユーザーに、<br>
+          ドライブコースをおすすめしやすくなります。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="home__grid">
+    <div class="home__half-grid">
+      <div class="home__content">
+        <h1 class="home__heading">
+          おすすめのドライブコースを探そう
+        </h1>
+        <p class="home__text">
+          共有されたドライブコースやスポットを検索することができます。<br>
+          名称や住所、気になるジャンルからはもちろん、<br>
+          車やバイクのタイプを選んで絞り込むことが可能です。
+        </p>
+      </div>
+    </div>
+    <div class="home__half-grid">
+      <div class="home__form">
+        <%= render "homes/search_form" %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate
   before_action :ensure_and_set_current_user, except: :show
 
   def show
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if !@user.is_private || @user == current_user
       @courses = @user.courses.order(created_at: :desc).page(params[:page])
     else
-      redirect_back(fallback_location: root_path)
+      redirect_to root_path
     end
   end
 

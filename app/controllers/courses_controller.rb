@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate, except: :show
 
   def show
     @course = Course.find(params[:id])
@@ -44,6 +44,13 @@ class CoursesController < ApplicationController
     @course.is_recorded = true
     @course.save
     redirect_to user_course_path(current_user, @course)
+  end
+
+  def import
+    course = Course.find(params[:id])
+    redirect_to user_path(current_user) if course.user.is_private
+    current_user.import_course(course)
+    redirect_back(fallback_location: root_path)
   end
 
   private

@@ -35,9 +35,9 @@
   <td>
     <% if user_signed_in? %>
       <% if course.user == current_user %>
-        <%= link_to "削除", course_path(course), class: "course__button course__button--red", method: :delete, data: {confirm: "本当に削除しますか？" } %>
+        <%= link_to "削除", course_path(course), class: "course__button course__button--delete", method: :delete, data: {confirm: "本当に削除しますか？" } %>
       <% else %>
-        <!--取得-->
+        <%= link_to "保存", import_course_path(course), class: "course__button", method: :post, data: {confirm: "マイドライブコースに保存しますか？" } %>
       <% end %>
     <% end %>
   </td>

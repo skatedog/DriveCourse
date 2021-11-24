@@ -12,6 +12,13 @@ class SpotsController < ApplicationController
     end
   end
 
+  def import
+    spot = Spot.find(params[:id])
+    redirect_to user_path(current_user) if spot.course.user.is_private
+    current_user.import_spot(spot)
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     def spot_params
       params.require(:spot).permit(:genre_id, :name, :introduction, spot_images: [])
