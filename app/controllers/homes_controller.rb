@@ -6,6 +6,7 @@ class HomesController < ApplicationController
     when "course"
       @courses = Course.search(search_params).page(params[:page])
     else
+      @spots = Spot.all
     end
   end
 

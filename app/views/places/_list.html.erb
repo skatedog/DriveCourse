@@ -1,7 +1,7 @@
 <div class="place-list place-list--place">
   <div class="place-list__title">マイプレイス</div>
   <ul class="place-list__list place-list__list--place">
-    <% current_user.places.where.not(name: @course.spots.pluck(:name)).each do |place| %>
+    <% current_user.places.each do |place| %>
       <li id=<%= place.id %> class="place-list__item">
         <%= place.name %>
       </li>

@@ -1,23 +1,18 @@
 <script>
-
-let spots
-let places
+// ルート検索に必要な各値をローカル変数に入れる。
 let avoidHighways = <%= course.avoid_highways %>
 let avoidTolls = <%= course.avoid_tolls %>
 let courseDepartureTime = <%= course.departure.to_f * 1000 %>
 let departureTime = Date.now() < courseDepartureTime ? courseDepartureTime : Date.now();
 
-$(() => {
-  spots = <%= raw(course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address])) %>;
-  places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
-});
+// railsのspotsオブジェクトをjson形式に変換し、javascriptのローカル変数spotsに渡す。
+let spots = <%= raw(course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address])) %>;
 
-callback = "initEditableCourseMap";
-
-let script = document.createElement('script');
-script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=" + callback;
-script.async = true;
-script.defer = true;
-document.body.appendChild(script);
+<% unless request.path == "/courses/#{course.id}"%>
+// railsのplacesオブジェクトをjson形式に変換し、javascriptのローカル変数placesに渡す。
+let places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
+<% end %>
 
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initCourseMap" async defer></script>

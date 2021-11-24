@@ -1,8 +1,7 @@
-<%= render "layouts/error_messages", resource: place %>
 <%= form_with model: place, class: "form" do |f| %>
   <div class="form__group form__group--none">
-    <input class="form__small-field" id="form_word" type="text" placeholder="検索ワード">
-    <input class="form__small-button" type="button" value="検索" onclick="ChangeByFormWord()">
+    <input class="form__small-field" id="place-search-word" type="text" placeholder="検索ワード">
+    <input class="form__small-button" id="place-search-button" type="button" value="検索">
   </div>
   <div class="form__group form__group--none">
     <%= f.text_field :name, class: "form__small-field", placeholder: "プレイス名" %>

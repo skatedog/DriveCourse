@@ -2,11 +2,12 @@ class Spot < ApplicationRecord
   has_many :spot_likes, dependent: :destroy
   belongs_to :course
   belongs_to :genre, optional: true
+  has_one :user, through: :course
   mount_uploaders :spot_images, SpotImagesUploader
 
   validates :course_id, presence: true
   validates :sort_number, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 50 }
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :address, presence: true
@@ -21,7 +22,8 @@ class Spot < ApplicationRecord
     use_for = search_params[:use_for]
 
     result =
-    self.left_joins(course: :vehicle).where(courses: { is_recorded: true })
+    self.joins(:user).where(users: { is_private: false })
+        .left_joins(course: :vehicle).where(courses: { is_recorded: true })
         .where("spots.name LIKE ?", "%#{keyword}%").where("spots.address LIKE ?", "%#{address}%")
         .yield_self do |spots|
           if genre_id == ""

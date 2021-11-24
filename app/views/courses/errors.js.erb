@@ -1,0 +1,5 @@
+if ($("#error_explanation").length) {
+  $("#error_explanation").replaceWith("<%= j(render "layouts/error_messages", resource: @course_form) %>");
+}  else {
+  $(".form").prepend("<%= j(render "layouts/error_messages", resource: @course_form) %>");
+}

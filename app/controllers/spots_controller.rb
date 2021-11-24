@@ -6,7 +6,7 @@ class SpotsController < ApplicationController
   def update
     @spot = Spot.find(params[:id])
     if @spot.update(spot_params)
-      redirect_to user_course_path(current_user, @spot.course)
+      redirect_to course_path(@spot.course)
     else
       render :edit
     end

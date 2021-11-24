@@ -1,0 +1,10 @@
+.errors {
+  padding-top: 10px;
+  font-size: 14px;
+  &__list {
+  }
+  &__item {
+    color: red;
+    line-height: 30px;
+  }
+}

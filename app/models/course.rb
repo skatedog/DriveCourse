@@ -4,27 +4,6 @@ class Course < ApplicationRecord
   belongs_to :user
   belongs_to :vehicle, optional: true
 
-  validates :user_id, presence: true
-  validates :name, presence: true
-  validates :avoid_highways, inclusion: { in: [true, false] }
-  validates :avoid_tolls, inclusion: { in: [true, false] }
-
-  def spots_update(new_spots)
-    old_spot_names = self.spots.pluck(:name)
-    new_spot_names = new_spots.pluck("name")
-    new_spots.each do |spot|
-      case spot["name"]
-      when *(new_spot_names - old_spot_names)
-        self.spots.create(spot)
-      when *(new_spot_names & old_spot_names)
-        self.spots.find_by(name: spot["name"]).update(spot)
-      end
-    end
-    (old_spot_names - new_spot_names).each do |name|
-      self.spots.find_by(name: name).destroy
-    end
-  end
-
   def self.search(search_params)
     keyword = search_params[:keyword]
     address = search_params[:address]
@@ -34,7 +13,8 @@ class Course < ApplicationRecord
     use_for = search_params[:use_for]
 
     result =
-    self.where(is_recorded: true).where("courses.name LIKE ?", "%#{keyword}%")
+    self.joins(:user).where(users: { is_private: false })
+        .where(is_recorded: true).where("courses.name LIKE ?", "%#{keyword}%")
         .yield_self do |courses|
           if address == "" && genre_id == ""
             courses

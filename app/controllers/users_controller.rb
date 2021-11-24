@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_and_set_current_user, except: [:index, :show]
-
-  def index
-    @users = User.all
-  end
+  before_action :ensure_and_set_current_user, except: :show
 
   def show
     @user = User.find(params[:id])
-    @courses = @user.courses.order(created_at: :desc).page(params[:page])
+    if !@user.is_private || @user == current_user
+      @courses = @user.courses.order(created_at: :desc).page(params[:page])
+    else
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def edit

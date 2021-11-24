@@ -6,20 +6,32 @@
     </div>
   <% end %>
   <ul class="header__list">
-    <%= link_to user_path(current_user), data: { turbolinks: false } do %>
-      <li class="header__item">マイページ</li>
-    <% end %>
-    <%= link_to homes_top_path  do %>
-      <li class="header__item">検　 索</li>
-    <% end %>
-    <%= link_to places_path, data: { turbolinks: false } do %>
-      <li class="header__item">プレイス登録</li>
-    <% end %>
-    <%= link_to new_user_course_path(current_user), data: { turbolinks: false } do %>
-      <li class="header__item">ドライブコース登録</li>
-    <% end %>
-    <%= link_to destroy_user_session_path, method: :delete do %>
-      <li class="header__item">ログアウト</li>
+    <% if user_signed_in? %>
+      <%= link_to user_path(current_user), data: { turbolinks: false } do %>
+        <li class="header__item">マイページ</li>
+      <% end %>
+      <%= link_to homes_top_path  do %>
+        <li class="header__item">検　 索</li>
+      <% end %>
+      <%= link_to places_path, data: { turbolinks: false } do %>
+        <li class="header__item">プレイス登録</li>
+      <% end %>
+      <%= link_to new_course_path(current_user), data: { turbolinks: false } do %>
+        <li class="header__item">ドライブコース登録</li>
+      <% end %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <li class="header__item">ログアウト</li>
+      <% end %>
+    <% else %>
+      <%= link_to homes_top_path  do %>
+        <li class="header__item">検　 索</li>
+      <% end %>
+      <%= link_to new_user_session_path do %>
+        <li class="header__item">ログイン</li>
+      <% end %>
+      <%= link_to new_user_registration_path do %>
+        <li class="header__item">新規登録</li>
+      <% end %>
     <% end %>
   </ul>
 </header>

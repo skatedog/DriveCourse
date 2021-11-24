@@ -7,9 +7,11 @@
     <div class="my-page__vehicle">
       <div class="my-page__title">
         Car
-        <div class="my-page__new">
-          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "car") %>
-        </div>
+        <% if @user == current_user %>
+          <div class="my-page__new">
+            <%= link_to "新規登録", new_vehicle_path(current_user, category: "car") %>
+          </div>
+        <% end %>
       </div>
       <% if @user.vehicles.car.present? %>
         <div class="vehicle-slider">
@@ -22,9 +24,11 @@
     <div class="my-page__vehicle">
       <div class="my-page__title">
         Bike
-        <div class="my-page__new">
-          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "motorcycle") %>
-        </div>
+        <% if @user == current_user %>
+          <div class="my-page__new">
+            <%= link_to "新規登録", new_vehicle_path(current_user, category: "motorcycle") %>
+          </div>
+        <% end %>
       </div>
       <% if @user.vehicles.motorcycle.present? %>
         <%= render @user.vehicles.motorcycle %>

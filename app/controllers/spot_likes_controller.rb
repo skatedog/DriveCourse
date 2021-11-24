@@ -5,6 +5,6 @@ class SpotLikesController < ApplicationController
   end
   def destroy
     @spot = Spot.find(params[:spot_id])
-    @spot.spot_likes.find_by(user_id: params[:user_id]).destroy
+    @spot.spot_likes.find_by(user_id: current_user.id).destroy
   end
 end

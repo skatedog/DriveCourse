@@ -39,14 +39,13 @@
     line-height: 30px;
     margin-bottom: 10px;
     padding: 0px 10px;
-    word-wrap: break-word;
     &:hover {
       transform: scale(1.03, 1.03);
     }
   }
   &__text {
     flex: 1;
-    word-wrap: break-word;
+    word-break: break-all;
   }
   &__item-delete {
     font-size: 16px;
