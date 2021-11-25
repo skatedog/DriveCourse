@@ -12,7 +12,8 @@ class HomesController < ApplicationController
   end
 
   private
-    def search_params
-      params.permit(:keyword, :address, :genre_id, :category, :sort_by, :search_for, use_for:[])
-    end
+
+  def search_params
+    params.permit(:keyword, :address, :genre_id, :category, :sort_by, :search_for, use_for: [])
+  end
 end

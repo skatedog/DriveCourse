@@ -3,7 +3,9 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.eager_load(:user).preload(:course_likes, spots: [:genre, :user, :spot_likes]).find(params[:id])
-    redirect_to user_path(current_user) if @course.user.is_private && @course.user != current_user
+    if @course.user.is_private && @course.user != current_user
+      redirect_to user_path(current_user)
+    end
   end
 
   def new
@@ -54,7 +56,11 @@ class CoursesController < ApplicationController
   end
 
   private
-    def course_params
-      params.require(:course).permit(:user_id, :name, :introduction, :vehicle_id, :avoid_highways, :avoid_tolls, :departure, :spots)
-    end
+
+  def course_params
+    params.require(:course).permit(
+      :user_id, :name, :introduction, :vehicle_id, :avoid_highways,
+      :avoid_tolls, :departure, :spots
+    )
+  end
 end

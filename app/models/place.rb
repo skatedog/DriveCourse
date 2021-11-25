@@ -10,7 +10,7 @@ class Place < ApplicationRecord
   validates :address, presence: true
 
   def remove_unnecessary_error_messages
-    self.errors.messages.delete(:latitude)
-    self.errors.messages.delete(:longitude)
+    errors.messages.delete(:latitude)
+    errors.messages.delete(:longitude)
   end
 end

@@ -21,12 +21,13 @@ class SpotsController < ApplicationController
   end
 
   private
-    def check_and_set_spot
-      @spot = Spot.find(params[:id])
-      redirect_to user_path(current_user) if @spot.user != current_user
-    end
 
-    def spot_params
-      params.require(:spot).permit(:genre_id, :name, :introduction, spot_images: [])
-    end
+  def check_and_set_spot
+    @spot = Spot.find(params[:id])
+    redirect_to user_path(current_user) if @spot.user != current_user
+  end
+
+  def spot_params
+    params.require(:spot).permit(:genre_id, :name, :introduction, spot_images: [])
+  end
 end

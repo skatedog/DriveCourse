@@ -25,5 +25,4 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     get courses_edit_url
     assert_response :success
   end
-
 end

@@ -5,7 +5,7 @@ class UserImageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.development? # 開発環境の場合
-  storage :file
+    storage :file
   elsif Rails.env.test? # テスト環境の場合
     storage :file
   else # 本番環境の場合

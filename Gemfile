@@ -76,6 +76,9 @@ group :development do
 
   # n+1問題対処用
   gem 'bullet'
+
+  # 静的コード解析ツール
+  gem 'rubocop-airbnb'
 end
 
 group :test do

@@ -10,5 +10,4 @@ class VehiclesControllerTest < ActionDispatch::IntegrationTest
     get vehicles_edit_url
     assert_response :success
   end
-
 end

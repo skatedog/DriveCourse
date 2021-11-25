@@ -22,41 +22,42 @@ class Spot < ApplicationRecord
     use_for = search_params[:use_for]
 
     result =
-    self.joins(:user).where(users: { is_private: false })
-        .left_joins(course: :vehicle).where(courses: { is_recorded: true })
-        .where("spots.name LIKE ?", "%#{keyword}%").where("spots.address LIKE ?", "%#{address}%")
-        .yield_self do |spots|
-          if genre_id == ""
-            spots
-          else
-            spots.where(spots: { genre_id: genre_id })
+      joins(:user).where(users: { is_private: false }).
+        left_joins(course: :vehicle).where(courses: { is_recorded: true }).
+        where("spots.name LIKE ?", "%#{keyword}%").where("spots.address LIKE ?", "%#{address}%").
+        yield_self do |spots|
+        if genre_id == ""
+          spots
+        else
+          spots.where(spots: { genre_id: genre_id })
+        end
+      end.
+        yield_self do |spots|
+        if category == "none"
+          spots
+        else
+          spots.where(vehicles: { use_for: use_for, category: category })
+        end
+      end.
+        select('spots.*').
+        yield_self do |spots|
+        if sort_by == "new"
+          spots.order(created_at: :desc)
+        else
+          spots.eager_load(:spot_likes).sort do |a, b|
+            b.spot_likes.size <=>
+            a.spot_likes.size
           end
         end
-        .yield_self do |spots|
-          if category == "none"
-            spots
-          else
-            spots.where(vehicles: { use_for: use_for, category: category })
-          end
-        end
-        .select('spots.*')
-        .yield_self do |spots|
-          if sort_by == "new"
-            spots.order(created_at: :desc)
-          else
-            spots.eager_load(:spot_likes).sort do |a, b|
-              b.spot_likes.size <=>
-              a.spot_likes.size
-            end
-          end
-        end
+      end
     if sort_by == "new"
       result
     else
       Kaminari.paginate_array(result)
     end
   end
+
   def liked_by?(user)
-    self.spot_likes.pluck(:user_id).include?(user.id)
+    spot_likes.pluck(:user_id).include?(user.id)
   end
 end

@@ -5,7 +5,7 @@ class VehicleImageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.development? # 開発環境の場合
-  storage :file
+    storage :file
   elsif Rails.env.test? # テスト環境の場合
     storage :file
   else # 本番環境の場合
@@ -19,7 +19,6 @@ class VehicleImageUploader < CarrierWave::Uploader::Base
   end
 
   process resize_to_fill: [240, 160, "Center"]
-
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
