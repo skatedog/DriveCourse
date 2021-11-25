@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root "homes#top"
   get "homes/search"
   resources :places, only: [:index, :create, :destroy]
-  resources :users, except: [:index, :new, :create]
+  resources :users, except: [:index, :new, :create] do
+    get :like, on: :member
+  end
   resources :vehicles, except: [:index, :show]
   resources :courses do
     patch :record, on: :member

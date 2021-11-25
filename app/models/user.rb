@@ -7,8 +7,10 @@ class User < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :course_likes, dependent: :destroy
+  has_many :like_courses, through: :course_likes, source: :course
   has_many :spots, through: :courses
   has_many :spot_likes, dependent: :destroy
+  has_many :like_spots, through: :spot_likes, source: :spot
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :is_private, inclusion: { in: [true, false] }

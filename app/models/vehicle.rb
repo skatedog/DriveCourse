@@ -1,7 +1,7 @@
 class Vehicle < ApplicationRecord
   enum use_for: { town: 0, touring: 1, sports: 2 }
   enum category: { car: 0, motorcycle: 1 }
-  mount_uploaders :vehicle_images, VehicleImagesUploader
+  mount_uploader :vehicle_image, VehicleImageUploader
 
   belongs_to :user
   has_many :courses

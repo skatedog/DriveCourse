@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_164812) do
     t.integer "displacement", null: false
     t.string "name", null: false
     t.text "introduction"
-    t.json "vehicle_images"
+    t.string "vehicle_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

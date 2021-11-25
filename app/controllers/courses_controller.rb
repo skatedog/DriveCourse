@@ -43,7 +43,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @course.is_recorded = true
     @course.save
-    redirect_to user_course_path(current_user, @course)
+    redirect_to course_path(@course)
   end
 
   def import

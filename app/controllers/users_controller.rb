@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def like
+    case params[:like]
+    when "spot"
+      @spots = current_user.like_spots.page(params[:page])
+    when "course"
+      @courses = current_user.like_courses.page(params[:page])
+    end
+  end
+
   private
     def ensure_and_set_current_user
       @user = current_user

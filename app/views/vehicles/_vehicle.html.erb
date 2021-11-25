@@ -5,8 +5,8 @@
       <div class="vehicle__displacement">排気量：<%= vehicle.displacement %>cc</div>
       <div class="vehicle__introduction"><%= simple_format(vehicle.introduction) %></div>
     </div>
-    <% if vehicle.vehicle_images? %>
-      <%= image_tag vehicle.vehicle_images.first.url, class: "vehicle__logo"  %>
+    <% if vehicle.vehicle_image? %>
+      <%= image_tag vehicle.vehicle_image.url, class: "vehicle__logo"  %>
     <% else %>
       <% if vehicle.car? %>
         <%= image_tag "default/car.png", class: "vehicle__logo" %>

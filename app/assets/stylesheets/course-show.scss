@@ -1,17 +1,32 @@
 .course-show {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: calc(100vh - 100px);
+  &__info {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+  }
+  &__detail {
+    width: 1000px;
+  }
+  &__window {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: calc(100vh - 190px);
+  }
   &__map {
-    width: calc(100vw - 800px);
-    height: calc(100vh - 100px);
+    width: calc(100% - 800px);
+    height: 100%;
   }
   &__spot {
-    background-color: whitesmoke;
-    padding: 0 100px;
     width: 800px;
-    height: calc(100vh - 100px);
-    z-index: 10;
+    height: 100%;
+    background-color: whitesmoke;
+    padding: 0px 80px;
     overflow: scroll;
     -ms-overflow-style: none; /* IE, Edge 対応 */
     scrollbar-width: none; /* Firefox 対応 */

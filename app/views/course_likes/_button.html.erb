@@ -4,7 +4,7 @@
       <%= render partial: "layouts/like", locals: { count: course.course_likes.size } %>
     <% end %>
   <% else %>
-    <%= link_to course_course_likes_path(current_user, course), method: :post, remote: true, class: "like", id: "course_like-#{course.id}" do %>
+    <%= link_to course_course_likes_path(course), method: :post, remote: true, class: "like", id: "course_like-#{course.id}" do %>
       <%= render partial: "layouts/nolike", locals: { count: course.course_likes.size } %>
     <% end %>
   <% end %>
