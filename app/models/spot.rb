@@ -27,7 +27,6 @@ class Spot < ApplicationRecord
         .where("spots.name LIKE ?", "%#{keyword}%").where("spots.address LIKE ?", "%#{address}%")
         .yield_self do |spots|
           if genre_id == ""
-            p spots
             spots
           else
             spots.where(spots: { genre_id: genre_id })
@@ -35,7 +34,6 @@ class Spot < ApplicationRecord
         end
         .yield_self do |spots|
           if category == "none"
-            p "bbbb"
             spots
           else
             spots.where(vehicles: { use_for: use_for, category: category })
@@ -46,22 +44,19 @@ class Spot < ApplicationRecord
           if sort_by == "new"
             spots.order(created_at: :desc)
           else
-            p "sortaaaaaaaaaaa"
             spots.eager_load(:spot_likes).sort do |a, b|
               b.spot_likes.size <=>
               a.spot_likes.size
             end
           end
         end
-
     if sort_by == "new"
-      p "new"
       result
     else
       Kaminari.paginate_array(result)
     end
   end
   def liked_by?(user)
-    self.spot_likes.where(user_id: user.id).exists?
+    self.spot_likes.pluck(:user_id).include?(user.id)
   end
 end

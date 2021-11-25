@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate_user!
   before_action :ensure_and_set_current_user, except: :show
 
   def show
     @user = User.find(params[:id])
     if !@user.is_private || @user == current_user
-      @courses = @user.courses.order(created_at: :desc).page(params[:page])
+      @courses = @user.courses.eager_load(:course_likes).order(created_at: :desc).page(params[:page])
     else
       redirect_to root_path
     end
@@ -30,9 +30,9 @@ class UsersController < ApplicationController
   def like
     case params[:like]
     when "spot"
-      @spots = current_user.like_spots.page(params[:page])
+      @spots = current_user.like_spots.eager_load(:genre, :user, course: :user).preload(:spot_likes).page(params[:page])
     when "course"
-      @courses = current_user.like_courses.page(params[:page])
+      @courses = current_user.like_courses.eager_load(:user).preload(:course_likes).page(params[:page])
     end
   end
 

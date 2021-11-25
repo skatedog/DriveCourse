@@ -1,8 +1,9 @@
 class CoursesController < ApplicationController
-  before_action :authenticate, except: :show
+  before_action :authenticate_user!, except: :show
 
   def show
-    @course = Course.find(params[:id])
+    @course = Course.eager_load(:user).preload(:course_likes, spots: [:genre, :user, :spot_likes]).find(params[:id])
+    redirect_to user_path(current_user) if @course.user.is_private && @course.user != current_user
   end
 
   def new
@@ -34,16 +35,15 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course = current_user.courses.find(params[:id])
-    @course.destroy
+    course = current_user.courses.find(params[:id])
+    course.destroy
     redirect_to user_path(current_user)
   end
 
   def record
-    @course = Course.find(params[:id])
-    @course.is_recorded = true
-    @course.save
-    redirect_to course_path(@course)
+    course = current_user.courses.find(params[:id])
+    course.update(is_recorded: true)
+    redirect_to course_path(course)
   end
 
   def import

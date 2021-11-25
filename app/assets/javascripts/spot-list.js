@@ -98,7 +98,7 @@ $(() => {
   $(document).on("click", ".place-list__item-delete", function() {
     // 削除するスポットタグの順番と名前を取得する。
     let oldSortNumber = $(this).parent().attr("id")
-    let placeName = spots[oldSortNumber].name;
+    let oldSpotName = spots[oldSortNumber].name;
 
     // 削除するスポットタグより後ろのスポットの順番を更新する。
     spots.splice(oldSortNumber, 1)
@@ -111,11 +111,13 @@ $(() => {
     // スポットタグを削除する。
     $(this).parent().remove();
 
-    // 削除されたスポットのタグをプレイスに追加する。
-    let newPlace = places.find((place) => {
-      return place.name == placeName;
+    // 削除されたスポットがマイプレイスに存在すればタグをプレイスに戻す。
+    let place = places.find((place) => {
+      return place.name == oldSpotName;
     });
-    $(".place-list__list--place").append(`<li id=${newPlace.id} class="place-list__item ui-sortable-handle">${newPlace.name}</li>`);
+    if (place) {
+      $(".place-list__list--place").append(`<li id=${place.id} class="place-list__item ui-sortable-handle">${place.name}</li>`);
+    }
 
     refreshSpots(spots);
     updateCourseMap(spots);

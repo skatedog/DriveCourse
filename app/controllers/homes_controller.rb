@@ -5,11 +5,9 @@ class HomesController < ApplicationController
   def search
     case search_params[:search_for]
     when "spot"
-      @spots = Spot.search(search_params).page(params[:page])
+      @spots = Spot.eager_load(:genre, :user, course: :user).preload(:spot_likes).search(search_params).page(params[:page])
     when "course"
-      @courses = Course.search(search_params).page(params[:page])
-    else
-      @spots = Spot.all
+      @courses = Course.eager_load(:user).preload(:course_likes).search(search_params).page(params[:page])
     end
   end
 

@@ -51,6 +51,6 @@ class Course < ApplicationRecord
     end
   end
   def liked_by?(user)
-    self.course_likes.where(user_id: user.id).exists?
+    self.course_likes.pluck(:user_id).include?(user.id)
   end
 end
