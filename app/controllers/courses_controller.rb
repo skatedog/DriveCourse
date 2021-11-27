@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
   def destroy
     course = current_user.courses.find(params[:id])
     course.destroy
-    redirect_to user_path(current_user)
+    redirect_back(fallback_location: root_path)
   end
 
   def record

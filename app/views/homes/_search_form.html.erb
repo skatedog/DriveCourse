@@ -4,7 +4,7 @@
   <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "ジャンルを選択してください", selected: params[:genre_id] }, { class: "form__select" } %>
   <div class="form__group">
     <div class="form__check">
-      <%= f.radio_button :category, "none", checked: true %>
+      <%= f.radio_button :category, "none", checked: params[:category] == "none" || params[:category].blank? %>
       <%= f.label :category, "指定しない", value: "none" %>
     </div>
     <div class="form__check">
@@ -12,8 +12,8 @@
       <%= f.label :category, "車", value: "car" %>
     </div>
     <div class="form__check">
-      <%= f.radio_button :category, "motorcycle" %>
-      <%= f.label :category, "バイク", value: "motorcycle", checked: params[:category] == "motorcycle" %>
+      <%= f.radio_button :category, "motorcycle", checked: params[:category] == "motorcycle" %>
+      <%= f.label :category, "バイク", value: "motorcycle" %>
     </div>
   </div>
   <div class="form__group">

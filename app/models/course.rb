@@ -30,7 +30,11 @@ class Course < ApplicationRecord
         if category == "none"
           courses
         else
-          courses.joins(:vehicle).where(vehicles: { use_for: use_for, category: category })
+          if use_for.length == 1
+            courses.joins(:vehicle).where(vehicles: { category: category })
+          else
+            courses.joins(:vehicle).where(vehicles: { use_for: use_for, category: category })
+          end
         end
       end.
         select('courses.*').

@@ -1,27 +1,33 @@
 <div class="search">
+  <div class="search__form">
+    <%= render "homes/search_form" %>
+  </div>
   <% case params[:search_for] %>
   <% when "spot" %>
-    <div class="search__form">
-      <%= render "homes/search_form" %>
-    </div>
     <div class="search__spots-gallery">
-      <div class="search__spots">
-        <%= render @spots %>
-      </div>
-      <div class="search__page">
-        <%= paginate @spots %>
-      </div>
+      <% if @spots.present? %>
+        <div class="search__spots">
+          <%= render @spots %>
+        </div>
+        <div class="search__page">
+          <%= paginate @spots %>
+        </div>
+      <% else %>
+        <div class="search__none">
+          検索結果はありません
+        </div>
+      <% end %>
     </div>
   <% when "course" %>
-    <div class="search__form">
-      <%= render "homes/search_form" %>
-    </div>
     <div class="search__courses">
-      <%= render "courses/table", courses: @courses %>
+      <% if @courses.present? %>
+        <%= render "courses/table", courses: @courses %>
+      <% else %>
+        <div class="search__none">
+          検索結果はありません
+        </div>
+      <% end %>
     </div>
   <% else %>
-    <div>
-      <%= render "homes/search_form" %>
-    </div>
   <% end %>
 </div>

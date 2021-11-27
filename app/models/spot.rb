@@ -11,7 +11,6 @@ class Spot < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :address, presence: true
-  validates :stopover, presence: true
 
   def self.search(search_params)
     keyword = search_params[:keyword]
@@ -36,7 +35,11 @@ class Spot < ApplicationRecord
         if category == "none"
           spots
         else
-          spots.where(vehicles: { use_for: use_for, category: category })
+          if use_for.length == 1
+            spots.where(courses: { vehicles: { category: category } } )
+          else
+            spots.where(courses: { vehicles: { use_for: use_for, category: category } } )
+          end
         end
       end.
         select('spots.*').
@@ -44,7 +47,7 @@ class Spot < ApplicationRecord
         if sort_by == "new"
           spots.order(created_at: :desc)
         else
-          spots.eager_load(:spot_likes).sort do |a, b|
+          spots.sort do |a, b|
             b.spot_likes.size <=>
             a.spot_likes.size
           end

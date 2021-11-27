@@ -4,7 +4,7 @@ require "csv"
 CSV.foreach("db/seeds/csv/genre.csv", headers: true) do |genre|
   Genre.create!(
     id: genre["id"],
-    name: genre["name"]
+    name: genre["name"],
   )
 end
 
@@ -14,18 +14,37 @@ CSV.foreach("db/seeds/csv/user.csv", headers: true) do |user|
   User.create!(
     id: user["id"],
     name: user["name"],
-    email: "user#{i}@example.com",
+    introduction: user["introduction"],
+    email: "sample-user-#{i}@example.com",
     is_private: false,
     password: "password",
-    password_confirmation: "password"
+    password_confirmation: "password",
+    user_image: File.open("./public/images/user/#{user["id"]}.jpg"),
   )
   i += 1
 end
 
+# サンプルVeicle
+CSV.foreach("db/seeds/csv/vehicle.csv", headers: true) do |vehicle|
+  Vehicle.create!(
+    id: vehicle["id"],
+    user_id: vehicle["user_id"],
+    use_for: vehicle["use_for"],
+    category: vehicle["category"],
+    maker: vehicle["maker"],
+    displacement: vehicle["displacement"],
+    name: vehicle["name"],
+    introduction: vehicle["introduction"],
+    vehicle_image: File.open("./public/images/vehicle/#{vehicle["id"]}.jpg"),
+  )
+end
+
+# サンプルCourse
 CSV.foreach("db/seeds/csv/course.csv", headers: true) do |course|
   Course.create!(
     id: course["id"],
     user_id: course["user_id"],
+    vehicle_id: course["vehicle_id"],
     name: course["name"],
     introduction: course["introduction"],
     is_recorded: true,
@@ -33,6 +52,7 @@ CSV.foreach("db/seeds/csv/course.csv", headers: true) do |course|
   )
 end
 
+# サンプルSpot
 CSV.foreach("db/seeds/csv/spot.csv", headers: true) do |spot|
   Spot.create!(
     course_id: spot["course_id"],
