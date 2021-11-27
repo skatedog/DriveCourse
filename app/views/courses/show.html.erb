@@ -1,5 +1,23 @@
 <div class="course-show">
-  <div id="map" class="course-show__map"></div>
-  <div class="course-show__spot"><%= render @course.spots %></div>
+  <div class="course-show__info">
+    <div class="course-show__detail">
+      <table class="course">
+        <tr class="course__header-row">
+          <th class="course__user-head"></th>
+          <th class="course__info-head"></th>
+          <th class="course__record-botton-head"></th>
+          <th class="course__delete-botton-head"></th>
+        </tr>
+        <%= render @course %>
+      </table>
+    </div>
+  </div>
+  <div class="course-show__window">
+    <%= link_to "Google Mapで開く", google_map_course_link(@course), class: "course-show__link", target: :_blank, rel: "noopener noreferrer" %>
+    <div id="map" class="course-show__map"></div>
+    <div class="course-show__spot">
+      <%= render @course.spots %>
+    </div>
+  </div>
 </div>
 <%= render "courses/map", course: @course %>

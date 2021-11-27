@@ -2,15 +2,14 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @places = current_user.places
     @place = Place.new
+    @places = current_user.places
   end
 
   def create
     @place = current_user.places.new(place_params)
-    if @place.save
-    else
-      render :index
+    unless @place.save
+      render "places/errors"
     end
   end
 
@@ -21,7 +20,8 @@ class PlacesController < ApplicationController
   end
 
   private
-    def place_params
-      params.require(:place).permit(:name, :latitude, :longitude, :address)
-    end
+
+  def place_params
+    params.require(:place).permit(:name, :latitude, :longitude, :address)
+  end
 end

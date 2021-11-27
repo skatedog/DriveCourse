@@ -23,5 +23,7 @@ module DriveCourse
     # 時間を日本時間に設定
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

@@ -1,0 +1,47 @@
+<%= form_with url: homes_search_path, local: true, method: :get, class: "form" do |f| %>
+  <%= f.text_field :keyword, value: "#{params[:keyword]}", class: "form__field", placeholder: "キーワード" %>
+  <%= f.text_field :address, value: "#{params[:address]}", class: "form__field", placeholder: "住所" %>
+  <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "ジャンルを選択してください", selected: params[:genre_id] }, { class: "form__select" } %>
+  <div class="form__group">
+    <div class="form__check">
+      <%= f.radio_button :category, "none", checked: params[:category] == "none" || params[:category].blank? %>
+      <%= f.label :category, "指定しない", value: "none" %>
+    </div>
+    <div class="form__check">
+      <%= f.radio_button :category, "car", checked: params[:category] == "car" %>
+      <%= f.label :category, "車", value: "car" %>
+    </div>
+    <div class="form__check">
+      <%= f.radio_button :category, "motorcycle", checked: params[:category] == "motorcycle" %>
+      <%= f.label :category, "バイク", value: "motorcycle" %>
+    </div>
+  </div>
+  <div class="form__group">
+    <%= f.collection_check_boxes :use_for, Vehicle.use_fors_i18n, :first, :last, checked: params[:use_for] do |b| %>
+      <div class="form__check">
+        <%= b.label { b.check_box + " " + b.text } %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form__group">
+    <div class="form__check">
+      <%= f.radio_button :sort_by, "new", checked: true %>
+      <%= f.label :sort_by, "新着順", value: "new" %>
+    </div>
+    <div class="form__check">
+      <%= f.radio_button :sort_by, "like", checked: params[:sort_by] == "like" %>
+      <%= f.label :sort_by, "人気順", value: "like" %>
+    </div>
+  </div>
+  <div class="form__group">
+    <div class="form__check">
+      <%= f.radio_button :search_for, "spot", checked: true %>
+      <%= f.label :search_for, "プレイス", value: "spot" %>
+    </div>
+    <div class="form__check">
+      <%= f.radio_button :search_for, "course", checked: params[:search_for] == "course" %>
+      <%= f.label :search_for, "コース", value: "course" %>
+    </div>
+  </div>
+  <%= f.submit "検索", class: "form__button" %>
+<% end %>

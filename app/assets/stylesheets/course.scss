@@ -60,11 +60,8 @@
     line-height: 30px;
     display: block;
     letter-spacing: 1px;
-    &--red {
+    &--delete {
       background-color: gainsboro;
-    }
-    &--gray {
-      background-color: lightblue;
     }
   }
 }

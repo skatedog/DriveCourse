@@ -30,4 +30,21 @@
     margin: 0px 10px 0px auto;
     letter-spacing: 1px;
   }
+  &__like {
+    line-height: 40px;
+    font-size: 16px;
+    margin: 0px 10px 0px auto;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    &--tag {
+      margin: 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .my-page__course {
+    margin-left: 0px;
+  }
 }

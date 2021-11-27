@@ -1,13 +1,13 @@
 <div class="box box--center">
-  <div class="box__item-400">
-    <%= render "layouts/error_messages", resource: @spot %>
-    <%= form_with model: [current_user, @spot.course, @spot], local: true, class: "form" do |f| %>
+  <div class="box__item">
+    <%= form_with model: [@spot.course, @spot], local: true, class: "form" do |f| %>
+      <%= render "layouts/error_messages", resource: @spot %>
       <div class="form__group form__group--none">
         <%= f.label :spot_images, "画像登録", class:"form__label" %>
         <%= f.file_field :spot_images, multiple: true, class: "form__file" %>
       </div>
       <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "ジャンルを選択してください" }, { class: "form__select" } %>
-      <%= f.text_field :name, class: "form__field", placeholder: "プレイス名" %>
+      <%= f.text_field :name, class: "form__field", placeholder: "スポット名" %>
       <%= f.text_area :introduction, class: "form__field form__field--area", placeholder: "紹介文"  %>
       <%= f.submit "登録する", class: "form__button" %>
     <% end %>

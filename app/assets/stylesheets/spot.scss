@@ -39,7 +39,7 @@
   }
   &__course-info {
     margin-left: auto;
-    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
@@ -72,8 +72,7 @@
     right: 110px;
     letter-spacing: 1px;
   }
-  &__edit {
-    background-color: gainsboro;
+  &__button {
     text-align: center;
     border-radius: 5px;
     height: 34px;
@@ -84,5 +83,16 @@
     left: calc(100% - 90px);
     display: block;
     letter-spacing: 1px;
+    &--edit {
+      background-color: gainsboro;
+    }
+    &--import {
+      background-color: lightskyblue;
+    }
+  }
+  &__link {
+    color: dimgray;
+    margin-left: auto;
+    padding-top: 10px;
   }
 }

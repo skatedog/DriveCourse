@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2021_11_19_164812) do
     t.decimal "latitude", precision: 9, scale: 7, null: false
     t.decimal "longitude", precision: 10, scale: 7, null: false
     t.string "address", null: false
-    t.boolean "stopover", default: true, null: false
     t.json "spot_images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -98,7 +97,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_164812) do
     t.integer "displacement", null: false
     t.string "name", null: false
     t.text "introduction"
-    t.json "vehicle_images"
+    t.string "vehicle_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

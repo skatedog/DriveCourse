@@ -1,15 +1,32 @@
 <div class="my-page">
   <div class="my-page__info">
-    <div class="my-page__title">Owner</div>
+    <div class="my-page__title">
+      Owner
+      <div class="my-page__like">
+        <%= link_to like_user_path(current_user, like: "spot") do %>
+          <div class="my-page__like my-page__like--tag">
+            <%= image_tag "icon/like.png", class: "like__icon" %>&nbsp;プレイス
+          </div>
+        <% end %>
+        &nbsp;&nbsp;
+        <%= link_to like_user_path(current_user, like: "course") do %>
+          <div class="my-page__like my-page__like--tag">
+            <%= image_tag "icon/like.png", class: "like__icon" %>&nbsp;コース
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="my-page__user">
       <%= render @user %>
     </div>
     <div class="my-page__vehicle">
       <div class="my-page__title">
         Car
-        <div class="my-page__new">
-          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "car") %>
-        </div>
+        <% if @user == current_user %>
+          <div class="my-page__new">
+            <%= link_to "新規登録", new_vehicle_path(category: "car") %>
+          </div>
+        <% end %>
       </div>
       <% if @user.vehicles.car.present? %>
         <div class="vehicle-slider">
@@ -22,9 +39,11 @@
     <div class="my-page__vehicle">
       <div class="my-page__title">
         Bike
-        <div class="my-page__new">
-          <%= link_to "新規登録", new_user_vehicle_path(current_user, category: "motorcycle") %>
-        </div>
+        <% if @user == current_user %>
+          <div class="my-page__new">
+            <%= link_to "新規登録", new_vehicle_path(category: "motorcycle") %>
+          </div>
+        <% end %>
       </div>
       <% if @user.vehicles.motorcycle.present? %>
         <%= render @user.vehicles.motorcycle %>
@@ -34,7 +53,7 @@
     </div>
   </div>
   <div class="my-page__course">
-    <div class="my-page__title">Course</div>
+    <div class="my-page__title">My DriveCourse</div>
     <%= render "courses/table", courses: @courses %>
   </div>
 </div>

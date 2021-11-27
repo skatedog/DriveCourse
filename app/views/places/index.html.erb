@@ -2,6 +2,5 @@
   <div class="place-edit__form">
     <%= render "places/form", place: @place %>
     </div>
-  <div id="map" class="place-edit__map"></div>
+  <%= render "places/map", places: @places %>
 </div>
-<%= render "places/map", place: @place %>

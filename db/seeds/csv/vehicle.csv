@@ -1,0 +1,8 @@
+id,user_id,use_for,category,maker,displacement,name,introduction
+1,1,sports,car,マツダ,1300,RX-7,大事に乗っています。
+2,1,sports,motorcycle,ヤマハ,600,YZF-R6,早くてカッコイイ！
+3,2,town,car,ダイハツ,660,ミラジーノ,カワイイ見た目で大好きです！
+4,3,touring,car,スズキ,660,カプチーノ,オープンで海沿いを走ると気持ちいい！
+5,4,sports,car,トヨタ,1800,MR-S,青がカッコよくて気に入っています。
+6,5,touring,car,スズキ,660,アルトワークス,初めての車です！
+7,6,town,motorcycle,ヤマハ,50,YB-1 Four,小さいけれど、お気に入り。

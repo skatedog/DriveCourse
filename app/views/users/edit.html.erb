@@ -1,7 +1,7 @@
 <div class="box box--center">
   <div class="box__item">
-    <%= render "layouts/error_messages", resource: @user %>
     <%= form_with model: @user, local: true, class: "form" do |f| %>
+    <%= render "layouts/error_messages", resource: @user %>
       <div class="form__group form__group--none">
         <%= f.label :user_image, "画像登録", class:"form__label" %>
         <%= f.file_field :user_image, class: "form__file" %>

@@ -6,14 +6,20 @@
       <% else %>
         <%= image_tag "default/user.png", class: "course__user-logo" %>
       <% end %>
-      <div class="course__user-name"><%= course.user.name %></div>
+      <div class="course__user-name">
+        <% if user_signed_in? %>
+          <%= link_to course.user.name, user_path(course.user) %>
+        <% else %>
+          <%= course.user.name %>
+        <% end %>
+      </div>
     </div>
   </td>
   <td>
     <% if course.is_recorded %>
-      <%= link_to course.name, user_course_path(current_user, course), class: "course__name", data: { turbolinks: false } %>
+      <%= link_to course.name, course_path(course), class: "course__name", data: { turbolinks: false } %>
     <% else %>
-      <%= link_to course.name, edit_user_course_path(current_user, course), class: "course__name", data: { turbolinks: false } %>
+      <%= link_to course.name, edit_course_path(course), class: "course__name", data: { turbolinks: false } %>
     <% end %>
     <div class="course__introduction">
       <%= course.introduction %>
@@ -23,10 +29,16 @@
     <% if course.is_recorded %>
       <%= render "course_likes/button", course: course %>
     <% else %>
-      <%= link_to "記録開始",  record_user_course_path(current_user, course), class: "course__button", method: :patch, data: {confirm: "一度記録を開始するとコース順序の変更はできません。\n本当に記録を開始しますか？", turbolinks: false } %>
+      <%= link_to "記録開始",  record_course_path(course), class: "course__button", method: :patch, data: {confirm: "一度記録を開始するとコース順序の変更はできません。\n本当に記録を開始しますか？", turbolinks: false } %>
     <% end %>
   </td>
   <td>
-    <%= link_to "削除", user_course_path(current_user, course), class: "course__button course__button--red", method: :delete, data: {confirm: "本当に削除しますか？" } %>
+    <% if user_signed_in? %>
+      <% if course.user == current_user %>
+        <%= link_to "削除", course_path(course), class: "course__button course__button--delete", method: :delete, data: {confirm: "本当に削除しますか？" } %>
+      <% else %>
+        <%= link_to "保存", import_course_path(course), class: "course__button", method: :post, data: {confirm: "マイドライブコースに保存しますか？" } %>
+      <% end %>
+    <% end %>
   </td>
 </tr>

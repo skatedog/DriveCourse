@@ -1,0 +1,16 @@
+<div class="search">
+  <% case params[:like] %>
+  <% when "spot" %>
+    <div class="search__spots-gallery">
+      <div class="search__spots">
+        <%= render @spots %>
+      </div>
+      <div class="search__page">
+        <%= paginate @spots %>
+      </div>
+    </div>
+  <% when "course" %>
+      <%= render "courses/table", courses: @courses %>
+    </div>
+  <% end %>
+</div>

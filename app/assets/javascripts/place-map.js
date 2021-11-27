@@ -5,51 +5,58 @@ let map;
 let marker;
 let geocoder;
 
+// プレイスマップを初期化する。
 function initPlaceMap() {
-  map = initMap(lat, lng);
-  marker = setMarker(map, lat, lng);
-}
-
-function initEditablePlaceMap() {
-  map = initMap(lat, lng);
-  marker = setMarker(map, lat, lng);
+  map = initMap();
+  marker = setMarker(map);
   geocoder = new google.maps.Geocoder();
 
-  // markerをdragできるようにする
+  // markerをdragできるようにする。
   marker.setOptions({ draggable: true });
 
-  // markerがdragされた場合の処理
+  // markerがdragされた場合の処理。
   google.maps.event.addListener(marker, "dragend", (event) => {
+    // markerの座標を基に地図とフォームの値を更新する。
     changeByLatLng(event.latLng);
   });
 
-  // mapがclickされた場合の処理
+  // mapがclickされた場合の処理。
   google.maps.event.addListener(map, "click", (event) => {
+    // clickされた位置の座標を基に地図とフォームの値を更新する。
     changeByLatLng(event.latLng);
   });
 }
 
-// 引数:座標, 機能:地図を初期化する, 返値:mapオブジェクト
-const initMap = (lat = 35.68124, lng = 139.76658) => {
-  let latLng = new google.maps.LatLng(lat, lng);
-  let opts = {
-    zoom: 15,
-    center: latLng,
-  };
-  return new google.maps.Map(document.getElementById("map"), opts);
-}
+$(() => {
+  // プレイスリストのプレイスがクリックされた場合の処理。
+  $(document).on("click", ".place-list__item--place", function() {
+    // idからプレイスの座標を取得し、地図とフォームの値を更新する。
+    let id = $(this).attr("id");
+    let place = places.find((place) => {
+      return place.id == id;
+    });
+    let latLng = new google.maps.LatLng(place.latitude, place.longitude);
+    changeByLatLng(latLng);
+  });
 
-// 引数:mapオブジェクトと座標, 機能:地図にマーカーをセットする, 返値:markerオブジェクト
-const setMarker = (map, lat = 35.68124, lng = 139.76658) => {
-  let latLng = new google.maps.LatLng(lat, lng);
-  let opts = {
-    position: latLng,
-    map: map,
-  }
-  return new google.maps.Marker(opts);
-}
+  // プレイス検索ボタンが押された場合の処理。
+  $("#place-search-button").on("click", function() {
+    // geocoderで検索ワードから座標と住所を割り出し、地図とフォームの値を更新する。
+    let word = document.getElementById("place-search-word").value;
+    geocoder.geocode( { address: word }, (results, status) => {
+      if (status == 'OK') {
+        let latLng = results[0].geometry.location;
+        let address = results[0].formatted_address.replace(/^日本、(〒\d{3}-\d{4} )?/,"");
+        UpdatePlaceMap(latLng, address);
+        $("#place_name").val(word);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  });
+});
 
-// 座標を基にviewと地図を更新する
+// 地図とフォームの値を更新する。
 const changeByLatLng = (latLng) => {
   geocoder.geocode( { latLng: latLng }, (results, status) => {
     if (status == 'OK') {
@@ -61,22 +68,7 @@ const changeByLatLng = (latLng) => {
   });
 }
 
-// 検索ワードを基にviewと地図を更新する
-const ChangeByFormWord = () => {
-  let word = document.getElementById("form_word").value;
-  geocoder.geocode( { address: word }, (results, status) => {
-    if (status == 'OK') {
-      let latLng = results[0].geometry.location;
-      let address = results[0].formatted_address.replace(/^日本、(〒\d{3}-\d{4} )?/,"");
-      UpdatePlaceMap(latLng, address);
-      $("#place_name").val(word);
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
-
-// viewと地図を更新する
+// viewと地図を更新する。
 const UpdatePlaceMap = (latLng, address) => {
   let lat = latLng.lat();
   let lng = latLng.lng();
@@ -86,14 +78,3 @@ const UpdatePlaceMap = (latLng, address) => {
   map.panTo(latLng);
   marker.setPosition(latLng);
 }
-
-$(() => {
-  $(document).on("click", ".place-list__item--place", function() {
-    let id = $(this).attr("id");
-    let place = places.find((place) => {
-      return place.id == id;
-    });
-    let latLng = new google.maps.LatLng(place.latitude, place.longitude);
-    changeByLatLng(latLng);
-  });
-});

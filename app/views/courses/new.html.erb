@@ -1,5 +1,7 @@
 <div class="course-edit">
-  <div class="course-edit__form"><%= render "courses/form", course: @course %></div>
+  <div class="course-edit__form">
+    <%= render "courses/form", course_form: @course_form %>
+  </div>
   <div id="map" class="course-edit__map"></div>
 </div>
-<%= render "courses/map", course: @course %>
+<%= render "courses/map", course: @course_form.course %>

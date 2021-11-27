@@ -8,7 +8,7 @@ class CreateVehicles < ActiveRecord::Migration[5.2]
       t.integer :displacement, null: false
       t.string :name, null: false
       t.text :introduction
-      t.json :vehicle_images
+      t.string :vehicle_image
       t.timestamps
     end
   end
