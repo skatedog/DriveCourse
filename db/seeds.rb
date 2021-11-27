@@ -66,3 +66,30 @@ CSV.foreach("db/seeds/csv/spot.csv", headers: true) do |spot|
     spot_images: [File.open("./public/images/course/#{spot["course_id"]}/#{spot["sort_number"]}.jpg")],
   )
 end
+
+# サンプルLike
+i = 0
+
+spot_ids = Spot.ids
+course_ids = Course.ids
+
+30.times do
+  user =User.create!(
+    name: "like-user-#{i}@example.com",
+    email: "like-user-#{i}@example.com",
+    is_private: false,
+    password: "password",
+    password_confirmation: "password",
+  )
+  user.spot_likes.create!(
+    spot_ids.sample(20).map do |spot_id|
+      { spot_id: spot_id}
+    end
+  )
+  user.course_likes.create!(
+    course_ids.sample(5).map do |course_id|
+      { course_id: course_id}
+    end
+  )
+  i += 1
+end
