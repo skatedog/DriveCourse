@@ -2,7 +2,7 @@
   <% if spot.spot_images? %>
     <div class="image-slider">
       <% spot.spot_images.each do |image| %>
-          <%= image_tag image.url %>
+        <%= image_tag image.url %>
       <% end %>
     </div>
   <% else %>
@@ -19,7 +19,10 @@
       <%= link_to "保存", import_course_spot_path(spot.course, spot), class: "spot__button spot__button--import", method: :post, data: {confirm: "マイプレイスに保存しますか？" } %>
     <% end %>
   <% end %>
-  <div class="spot__introduction"><%= simple_format(spot.introduction) %></div>
+  <div class="spot__introduction">
+    <%= simple_format(spot.introduction) %>
+  </div>
+  <%= link_to "Google Mapで開く", google_map_spot_link(spot), class:"spot__link", target: :_blank, rel: "noopener noreferrer" %>
   <div class="spot__course-info">
     <% if spot.user.user_image? %>
       <%= image_tag spot.course.user.user_image.url, class: "spot__user-icon" %>

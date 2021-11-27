@@ -39,7 +39,7 @@
   }
   &__course-info {
     margin-left: auto;
-    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
@@ -89,5 +89,10 @@
     &--import {
       background-color: lightskyblue;
     }
+  }
+  &__link {
+    color: dimgray;
+    margin-left: auto;
+    padding-top: 10px;
   }
 }

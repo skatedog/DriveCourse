@@ -13,6 +13,7 @@
     </div>
   </div>
   <div class="course-show__window">
+    <%= link_to "Google Mapで開く", google_map_course_link(@course), class: "course-show__link", target: :_blank, rel: "noopener noreferrer" %>
     <div id="map" class="course-show__map"></div>
     <div class="course-show__spot">
       <%= render @course.spots %>
