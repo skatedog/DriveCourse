@@ -29,7 +29,7 @@
     <% if course.is_recorded %>
       <%= render "course_likes/button", course: course %>
     <% else %>
-      <%= link_to "記録開始",  record_course_path(course), class: "course__button", method: :patch, data: {confirm: "一度記録を開始するとコース順序の変更はできません。\n本当に記録を開始しますか？", turbolinks: false } %>
+      <%= link_to "記録開始",  record_course_path(course), class: "course__button", method: :patch, data: {confirm: "記録を開始するとコース情報の変更はできません。\n記録を開始しますか？", turbolinks: false } %>
     <% end %>
   </td>
   <td>

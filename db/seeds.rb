@@ -82,12 +82,12 @@ course_ids = Course.ids
     password_confirmation: "password",
   )
   user.spot_likes.create!(
-    spot_ids.sample(20).map do |spot_id|
+    spot_ids.sample(rand(10...30)).map do |spot_id|
       { spot_id: spot_id}
     end
   )
   user.course_likes.create!(
-    course_ids.sample(5).map do |course_id|
+    course_ids.sample(rand(1...10)).map do |course_id|
       { course_id: course_id}
     end
   )

@@ -9,6 +9,7 @@
     margin: 20px 0px 10px;
     line-height: 40px;
     font-size: 24px;
+    font-family: 'Oswald', sans-serif;
   }
   &__info {
     width: 700px;
@@ -43,7 +44,7 @@
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1439px) {
   .my-page__course {
     margin-left: 0px;
   }

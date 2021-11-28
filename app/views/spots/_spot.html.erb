@@ -37,7 +37,7 @@
       <% end %>
     </div>
     <div class="spot__course-name">
-      <%= link_to "#{spot.course.name} より", course_path(spot.course) %>
+      <%= link_to "#{spot.course.name} より", course_path(spot.course), data: { turbolinks: false } %>
     </div>
     <%= render "spot_likes/button", spot: spot %>
   </div>
