@@ -1,6 +1,8 @@
-<div class="place-edit">
-  <div class="place-edit__form">
+<div class="window">
+  <div class="window__form">
     <%= render "places/form", place: @place %>
-    </div>
-  <%= render "places/map", places: @places %>
+  </div>
+  <div class="window__display">
+    <%= render "places/map", places: @places %>
+  </div>
 </div>
