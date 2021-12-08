@@ -46,7 +46,9 @@
         <% end %>
       </div>
       <% if @user.vehicles.motorcycle.present? %>
-        <%= render @user.vehicles.motorcycle %>
+        <div class="vehicle-slider">
+          <%= render @user.vehicles.motorcycle %>
+        </div>
       <% else %>
         <div class="vehicle vehicle--new"></div>
       <% end %>

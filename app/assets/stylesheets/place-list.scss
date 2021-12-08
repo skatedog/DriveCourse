@@ -41,6 +41,7 @@
     padding: 0px 10px;
     &:hover {
       transform: scale(1.03, 1.03);
+      cursor: pointer;
     }
   }
   &__text {
