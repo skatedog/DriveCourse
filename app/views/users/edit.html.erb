@@ -11,12 +11,12 @@
       <%= f.text_area :introduction, class: "form__field form__field--area", placeholder: "自己紹介" %>
       <div class="form__group form__group--none">
         <div class="form__radio">
-          <%= f.radio_button :is_private, TRUE %>
-          <%= f.label :is_private, "非公開", value: TRUE %>
+          <%= f.radio_button :is_private, true %>
+          <%= f.label :is_private, "非公開", value: true %>
         </div>
         <div class="form__radio">
-          <%= f.radio_button :is_private, FALSE %>
-          <%= f.label :is_private, "公開", value: FALSE %>
+          <%= f.radio_button :is_private, false %>
+          <%= f.label :is_private, "公開", value: false %>
         </div>
       </div>
       <%= f.submit "登録", class: "form__button" %>
