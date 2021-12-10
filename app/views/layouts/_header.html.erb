@@ -16,7 +16,7 @@
     <%= link_to places_path, data: { turbolinks: false } do %>
       <li class="header__item">プレイス登録</li>
     <% end %>
-    <%= link_to new_course_path(current_user), data: { turbolinks: false } do %>
+    <%= link_to new_course_path, data: { turbolinks: false } do %>
       <li class="header__item">ドライブコース登録</li>
     <% end %>
     <%= link_to destroy_user_session_path, method: :delete do %>
