@@ -4,10 +4,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if !@user.is_private || @user == current_user
+    if @user == current_user
       @courses = @user.courses.eager_load(:course_likes).order(created_at: :desc).page(params[:page])
     else
-      redirect_to root_path
+      redirect_to root_path if @user.is_private?
+      @courses = @user.courses.eager_load(:course_likes).where(is_recorded: true).order(created_at: :desc).page(params[:page])
     end
   end
 

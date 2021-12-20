@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.eager_load(:user).preload(:course_likes, spots: [:genre, :user, :spot_likes]).find(params[:id])
-    if @course.user.is_private && @course.user != current_user
+    if @course.user != current_user && (@course.user.is_private? || !@course.is_recorded?)
       redirect_to user_path(current_user)
     end
   end
@@ -50,7 +50,7 @@ class CoursesController < ApplicationController
 
   def import
     course = Course.find(params[:id])
-    redirect_to user_path(current_user) if course.user.is_private
+    redirect_to user_path(current_user) if course.user.is_private? || !@course.is_recorded?
     current_user.import_course(course)
     redirect_back(fallback_location: root_path)
   end
