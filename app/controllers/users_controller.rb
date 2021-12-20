@@ -5,10 +5,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if @user == current_user
-      @courses = @user.courses.eager_load(:course_likes).order(created_at: :desc).page(params[:page])
+      @courses = @user.courses.with_details.recent.page(params[:page])
     else
       redirect_to root_path if @user.is_private?
-      @courses = @user.courses.eager_load(:course_likes).where(is_recorded: true).order(created_at: :desc).page(params[:page])
+      @courses = @user.courses.with_details.recent.only_recorded.page(params[:page])
     end
   end
 
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(@user)
+      redirect_to @user
     else
       render :edit
     end
@@ -31,19 +31,17 @@ class UsersController < ApplicationController
   def like
     case params[:like]
     when "spot"
-      @spots = current_user.like_spots.eager_load(:genre, :user, course: :user).preload(:spot_likes).page(params[:page])
+      @spots = @user.like_spots.with_details.recent.page(params[:page])
     when "course"
-      @courses = current_user.like_courses.eager_load(:user).preload(:course_likes).page(params[:page])
+      @courses = @user.like_courses.with_details.recent.page(params[:page])
     end
   end
 
   private
 
   def ensure_and_set_current_user
-    @user = current_user
-    if @user.id != params[:id].to_i
-      redirect_to root_path
-    end
+    @user = User.find(params[:id])
+    redirect_to root_path if @user != current_user
   end
 
   def user_params

@@ -9,12 +9,12 @@ ja:
   enums:
     vehicle:
       use_for:
-        town: "街乗り"
-        touring: "ツーリング"
-        sports: "スポーツ"
+        town: 街乗り
+        touring: ツーリング
+        sports: スポーツ
       category:
-        car: "車"
-        motorcycle: "バイク"
+        car: 車
+        motorcycle: バイク
   activerecord:
     attributes:
       user:
@@ -48,52 +48,53 @@ ja:
         user:
           attributes:
             name:
-              too_long: "ニックネームは50文字以下にしてください。"
-              blank: "ニックネームを入力してください。"
+              blank: ニックネームを入力してください。
+              too_long: ニックネームは50文字以下にしてください。
             email:
-              blank: "メールアドレスを入力してください。"
+              blank: メールアドレスを入力してください。
             password:
-              blank: "パスワードを入力してください。"
+              blank: パスワードを入力してください。
+              too_short: パスワードは6文字以上で入力してください。
             is_protected:
-              blank: "公開設定が空白です。"
+              blank: 公開設定が空白です。
         vehicle:
           attributes:
             maker:
-              blank: "メーカーを入力してください。"
-              too_long: "メーカーは50文字以下にしてください。"
+              blank: メーカーを入力してください。
+              too_long: メーカーは50文字以下にしてください。
             displacement:
-              blank: "排気量(cc)を入力してください。"
-              not_a_number: "排気量(cc)には数字を入力してください。"
-              greater_than_or_equal_to: "排気量(cc)は30(cc)以上にしてください。"
-              less_than_or_equal_to: "排気量(cc)は10000(cc)以下にしてください。"
+              blank: 排気量(cc)を入力してください。
+              not_a_number: 排気量(cc)には数字を入力してください。
+              greater_than_or_equal_to: 排気量(cc)は30(cc)以上にしてください。
+              less_than_or_equal_to: 排気量(cc)は10000(cc)以下にしてください。
             name:
-              blank: "車種を入力してください。"
-              too_long: "車種は50文字以下にしてください。"
+              blank: 車種を入力してください。
+              too_long: 車種は50文字以下にしてください。
         place:
           attributes:
             name:
-              blank: "プレイス名を入力してください。"
-              too_long: "プレイス名は50文字以下にしてください。"
+              blank: プレイス名を入力してください。
+              too_long: プレイス名は50文字以下にしてください。
             address:
-              blank: "地図をクリックするか、検索により位置を指定してください。"
+              blank: 地図をクリックするか、検索により位置を指定してください。
             is_protected:
-              blank: "公開設定が空白です。"
+              blank: 公開設定が空白です。
         spot:
           attributes:
             name:
-              blank: "スポット名を入力してください。"
-              too_long: "スポット名は50文字以下にしてください。"
+              blank: スポット名を入力してください。
+              too_long: スポット名は50文字以下にしてください。
   activemodel:
     errors:
       models:
         course_form:
           attributes:
             name:
-              blank: "コース名を入力してください。"
+              blank: コース名を入力してください。
             avoid_highways:
-              inclusion: "コース名を入力してください。"
+              inclusion: コース名を入力してください。
             avoid_tolls:
-              inclusion: "コース名を入力してください。"
+              inclusion: コース名を入力してください。
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

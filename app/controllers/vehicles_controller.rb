@@ -38,6 +38,9 @@ class VehiclesController < ApplicationController
   end
 
   def vehicle_params
-    params.require(:vehicle).permit(:use_for, :category, :maker, :displacement, :name, :introduction, :vehicle_image)
+    params.require(:vehicle).permit(
+      :use_for, :category, :maker, :displacement,
+      :name, :introduction, :vehicle_image
+    )
   end
 end
