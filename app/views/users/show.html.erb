@@ -2,19 +2,17 @@
   <div class="my-page__info">
     <div class="my-page__title">
       Owner
-      <div class="my-page__like">
-        <%= link_to like_user_path(current_user, like: "spot") do %>
-          <div class="my-page__like my-page__like--tag">
+      <% if @user == current_user %>
+        <div class="my-page__like">
+          いいね一覧
+          <%= link_to like_user_path(current_user, like: "spot"), class: "my-page__like-content" do %>
             <%= image_tag "icon/like.png", class: "like__icon" %>&nbsp;プレイス
-          </div>
-        <% end %>
-        &nbsp;&nbsp;
-        <%= link_to like_user_path(current_user, like: "course") do %>
-          <div class="my-page__like my-page__like--tag">
+          <% end %>
+          <%= link_to like_user_path(current_user, like: "course"), class: "my-page__like-content" do %>
             <%= image_tag "icon/like.png", class: "like__icon" %>&nbsp;コース
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="my-page__user">
       <%= render @user %>

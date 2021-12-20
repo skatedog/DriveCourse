@@ -34,13 +34,15 @@
   &__like {
     line-height: 40px;
     font-size: 16px;
-    margin: 0px 10px 0px auto;
+    margin: 0px 5px 0px auto;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
-    &--tag {
-      margin: 0px;
-    }
+  }
+  &__like-content {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
   }
 }
 
