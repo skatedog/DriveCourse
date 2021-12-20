@@ -25,7 +25,7 @@
   <%= link_to "Google Mapで開く", google_map_spot_link(spot), class:"spot__link", target: :_blank, rel: "noopener noreferrer" %>
   <div class="spot__course-info">
     <% if spot.user.user_image? %>
-      <%= image_tag spot.course.user.user_image.url, class: "spot__user-icon" %>
+      <%= image_tag spot.user.user_image.url, class: "spot__user-icon" %>
     <% else %>
       <%= image_tag "default/user.png", class: "spot__user-icon" %>
     <% end %>

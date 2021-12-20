@@ -1,13 +1,13 @@
 class SpotsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_and_set_spot, except: :import
+  before_action :set_my_spot, except: :import
 
   def edit
   end
 
   def update
     if @spot.update(spot_params)
-      redirect_to course_path(@spot.course)
+      redirect_to @spot.course
     else
       render :edit
     end
@@ -15,16 +15,18 @@ class SpotsController < ApplicationController
 
   def import
     spot = Spot.find(params[:id])
-    redirect_to user_path(current_user) if spot.course.user.is_private
-    current_user.import_spot(spot)
-    redirect_back(fallback_location: root_path)
+    if spot.user.is_private? || !spot.course.is_recorded?
+      redirect_to current_user
+    else
+      current_user.import_spot(spot)
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   private
 
-  def check_and_set_spot
-    @spot = Spot.find(params[:id])
-    redirect_to user_path(current_user) if @spot.user != current_user
+  def set_my_spot
+    @spot = current_user.spots.find(params[:id])
   end
 
   def spot_params

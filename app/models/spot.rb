@@ -12,26 +12,30 @@ class Spot < ApplicationRecord
   validates :longitude, presence: true
   validates :address, presence: true
 
+  scope :recent, -> { order(created_at: :desc) }
+  scope :with_details, -> { eager_load(:user, :genre, course: :user).preload(:spot_likes) }
+
   def self.search(search_params)
-    keyword = search_params[:keyword]
-    address = search_params[:address]
-    genre_id = search_params[:genre_id]
-    category = search_params[:category]
-    sort_by = search_params[:sort_by]
-    use_for = search_params[:use_for]
+    keyword = search_params[:keyword]    # キーワード
+    address = search_params[:address]    # 住所
+    genre_id = search_params[:genre_id]  # ジャンル
+    category = search_params[:category]  # 車orバイク
+    use_for = search_params[:use_for]    # 用途
+    sort_by = search_params[:sort_by]    # 並び順
 
     result =
       joins(:user).where(users: { is_private: false }).
-        left_joins(course: :vehicle).where(courses: { is_recorded: true }).
-        where("spots.name LIKE ?", "%#{keyword}%").where("spots.address LIKE ?", "%#{address}%").
-        yield_self do |spots|
+      left_joins(course: :vehicle).where(courses: { is_recorded: true }).
+      where("spots.name LIKE ?", "%#{keyword}%"). # キーワード
+      where("spots.address LIKE ?", "%#{address}%"). # 住所
+      yield_self do |spots| # ジャンル
         if genre_id == ""
           spots
         else
           spots.where(spots: { genre_id: genre_id })
         end
       end.
-        yield_self do |spots|
+      yield_self do |spots| # 車orバイク,用途
         if category == "none"
           spots
         else
@@ -42,8 +46,8 @@ class Spot < ApplicationRecord
           end
         end
       end.
-        select('spots.*').
-        yield_self do |spots|
+      select('spots.*').
+      yield_self do |spots| # 並び順
         if sort_by == "new"
           spots.order(created_at: :desc)
         else
