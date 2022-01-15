@@ -1,15 +1,15 @@
 <script>
-// ルート検索に必要な各値をローカル変数に入れる。
+// ルート検索に必要な設定値を各変数に代入する。
 let avoidHighways = <%= course.avoid_highways %>
 let avoidTolls = <%= course.avoid_tolls %>
 let courseDepartureTime = <%= course.departure.to_f * 1000 %>
 let departureTime = Date.now() < courseDepartureTime ? courseDepartureTime : Date.now();
 
-// railsのspotsオブジェクトをjson形式に変換し、javascriptのローカル変数spotsに渡す。
+// railsのspotsオブジェクトをjson形式に変換し、javascriptの変数spotsに渡す。
 let spots = <%= raw(course.spots.to_json(only: [:sort_number, :name, :latitude, :longitude, :address])) %>;
 
 <% unless request.path == "/courses/#{course.id}"%>
-// railsのplacesオブジェクトをjson形式に変換し、javascriptのローカル変数placesに渡す。
+// railsのplacesオブジェクトをjson形式に変換し、javascriptの変数placesに渡す。
 let places = <%= raw(current_user.places.to_json(only: [:id, :name, :latitude, :longitude, :address])) %>;
 <% end %>
 

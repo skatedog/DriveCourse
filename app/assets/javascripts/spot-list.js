@@ -74,7 +74,7 @@ $(() => {
     updateCourseMap(spots);
   });
 
-  // 「高速道路を使わない」の状態が変化した場合の処理
+  // 「有料道路を使わない」の状態が変化した場合の処理
   $(document).on("change", "#course_avoid_tolls", function() {
     if ($(this).prop("checked")) {
       avoidTolls = true;
